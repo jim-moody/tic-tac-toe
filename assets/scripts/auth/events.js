@@ -4,6 +4,7 @@ import getFormFields from '../../../lib/get-form-fields'
 import api from './api'
 import ui from './ui'
 import { user } from '../store'
+import { signUpElement, signInElement } from './selectors'
 
 const onSignUp = (event) => {
   const data = getFormFields(event.target)
@@ -32,11 +33,16 @@ const onChangePassword = (event) => {
     .then(ui.changePasswordSuccess)
     .catch(ui.changePasswordFailure)
 }
+const onShowSignUp = (event) => {
+  signUpElement.show()
+  signInElement.hide()
+}
 const addHandlers = () => {
   $('#sign-up').on('submit', onSignUp)
   $('#sign-in').on('submit', onSignIn)
   $('#sign-out').on('submit', onSignOut)
   $('#change-password').on('submit', onChangePassword)
+  $('#sign-up-show').on('click', onShowSignUp)
 }
 
 module.exports = {

@@ -1,23 +1,61 @@
-main form {
-  float: left;
-  border: 1px solid lightgray;
-  max-width: 300px;
-  margin: 25px 25px 0 25px;
-  padding: 20px;
-  border-radius: 10px;
-  min-height: 200px;
+a:hover {
+  text-decoration: none;
 }
+
+.auth-form-alert {
+  margin: 5% auto 0;
+  width: 330px;
+  margin-bottom: -4%;
+}
+
+a:focus,
+header a:hover {
+  background-color: darken($primary-color, 10%);
+}
+
+.mdl-layout__drawer {
+  text-align: initial;
+}
+
+.form-card {
+  margin: 5% auto 0;
+}
+
+.form-link {
+  color: $link-color;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+.form-title {
+  justify-content: center;
+  background-color: $primary-color;
+  color: $primary-font-color;
+}
+
+main form {
+  min-height: 200px;
+  padding: 20px;
+}
+
+button.form-button {
+  margin: 0 auto;
+  width: 80%;
+}
+
 h1 {
   display: inline-block;
   margin-left: 10%;
   margin-right: auto;
-
 }
 
 .mdl-textfield__label {
   margin-bottom: 0;
 }
-
 @media (max-width: 1200px) {
   header form {
     clear: both;

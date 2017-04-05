@@ -1,11 +1,15 @@
 'use strict'
 
 import store from '../store'
-
+import {signUpElement, signInElement} from './selectors'
 const signUpSuccess = (data) => {
   console.log(data)
+  $('#sign-up-success-alert').slideToggle().delay(2000).slideToggle()
+  signUpElement.hide()
+  signInElement.show()
 }
 const signUpFailure = (error) => {
+  $('#sign-up-failure-alert').slideToggle().delay(2000).slideToggle()
   console.error(error)
 }
 const signInSuccess = ({user}) => {
