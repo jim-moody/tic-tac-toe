@@ -1,0 +1,37 @@
+$border: 1px solid #000;
+
+div {
+  text-align: center;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+.row {
+  &:nth-child(-n+2) {
+    border-bottom: $border;
+  }
+
+  div {
+    font-size: 10em;
+    height: 175px;
+    // text-align: center;
+
+    &:hover {
+      background-color: gray;
+      cursor: pointer;
+    }
+
+    &:nth-child(-n+2) {
+      border-right: $border;
+    }
+  }
+
+}
+
+.game-board {
+  margin: 0 auto;
+  max-width: 500px;
+}
