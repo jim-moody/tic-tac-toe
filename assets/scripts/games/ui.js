@@ -10,14 +10,14 @@ const onNewGameSuccess = ({game}) => {
 const onNewGameFailure = (data) => {
   console.log(data)
 }
-const onUpdateGameSuccess = (data) => {
-  if (determineOutcome().over) {
+const onUpdateGameSuccess = ({game}) => {
+   console.log(game)
+  if (game.over) {
     // set the header text to the winning marker
-    $('h1').text('Winner = ' + determineOutcome().winner)
+    $('h1').text('Winner = ' + determineOutcome(game.cells).winner)
     // turn off the click handlers on the board
     boardTiles.off('click')
   }
-  console.log(data)
 }
 const onUpdateGameFailure = (data) => {
   console.log(data)

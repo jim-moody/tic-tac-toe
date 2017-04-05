@@ -11,7 +11,7 @@ const createGame = () => {
     }
   })
 }
-const updateGame = (cell, gameId) => {
+const updateGame = (cell, gameId, over) => {
   return $.ajax({
     method: 'PATCH',
     url: config.apiOrigin + '/games/' + gameId,
@@ -21,11 +21,13 @@ const updateGame = (cell, gameId) => {
     data: {
       game: {
         cell,
-        over: false
+        over
       }
     }
   })
 }
+
+// const up
 
 module.exports = {
   createGame,

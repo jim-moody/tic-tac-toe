@@ -1,14 +1,14 @@
 'use strict'
 
 import store from '../store'
-// import {checkForWinner} from './helpers'
+import { determineOutcome } from './helpers'
 import api from './api'
 import ui from './ui'
 import { boardTiles } from './selectors'
 
 const onTileClick = (event) => {
-  console.log(store)
   const target = $(event.target)
+
   // if the cell is empty, set the text to be whatever the current marker is
   if (!target.text()) {
     target.text(store.currentPlay)
@@ -16,14 +16,20 @@ const onTileClick = (event) => {
       ? 'O'
       : 'X'
 
+    // Show the next play to the user
     $('#next-play').text(store.currentPlay)
+
+    // determine if this game is over
+    const over = determineOutcome().over
+    // create the new cell to save to the database
     const cell = {
       index: target.data('cell'),
       value: target.text()
     }
+    // get the current gameId to save to database
     const gameId = store.currentGame.id
 
-    api.updateGame(cell, gameId)
+    api.updateGame(cell, gameId, over)
       .then(ui.onUpdateGameSuccess)
       .catch(ui.onUpdateGameFailure)
   }
