@@ -4,6 +4,7 @@ import store from '../store'
 // import {checkForWinner} from './helpers'
 import api from './api'
 import ui from './ui'
+import { boardTiles } from './selectors'
 
 const onTileClick = (event) => {
   console.log(store)
@@ -25,9 +26,6 @@ const onTileClick = (event) => {
     api.updateGame(cell, gameId)
       .then(ui.onUpdateGameSuccess)
       .catch(ui.onUpdateGameFailure)
-
-    // const winner = checkForWinner()
-    // winner && handleWinner(winner)
   }
 }
 
@@ -38,15 +36,19 @@ const onNewGame = () => {
   // create game in database, then update store
   api.createGame().then(ui.onNewGameSuccess).catch(ui.onNewGameFailure)
   // clear the board of all text
-  $('#board .row div').text('')
+  boardTiles.text('')
+  // resets the tile clicks
+  boardTiles.off('click', onTileClick)
+  boardTiles.on('click', onTileClick)
 }
 
 const addEventHandlers = () => {
-  $('#board .row > div').on('click', onTileClick)
+  boardTiles.on('click', onTileClick)
   $('#new-game').on('click', onNewGame)
 }
 
 module.exports = {
   onNewGame,
-  addEventHandlers
+  addEventHandlers,
+  onTileClick
 }
