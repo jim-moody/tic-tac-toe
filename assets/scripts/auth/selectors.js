@@ -1,9 +1,13 @@
 'use strict'
 
-const signUpElement = $('#sign-up-container')
-const signInElement = $('#sign-in-container')
+const signUpContainer = $('#sign-up-container')
+const signInContainer = $('#sign-in-container')
+const signUpSuccessAlert = $('#sign-up-success-alert')
+const signUpFailureAlert = $('#sign-up-failure-alert')
 
 module.exports = {
-  signUpElement,
-  signInElement
+  signUpContainer,
+  signInContainer,
+  signUpSuccessAlert,
+  signUpFailureAlert
 }

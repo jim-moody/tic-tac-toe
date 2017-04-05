@@ -31,24 +31,25 @@
         </nav> -->
       </div>
     </header>
-    <!-- <div class="mdl-layout__drawer">
+    <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">Tic Tac Toe</span>
-      <nav class="mdl-navigation">
-        <a id="sign-out" class="mdl-navigation__link" href="">Sign Out</a>
-        <a id="show-change-password" class="mdl-navigation__link" href="">Change Password</a>
+      <nav class="header-drawer mdl-navigation">
+        <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-show-game-options">Play Game</button>
+        <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-view-statistics">Game Statistics</button>
+        <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-manage-profile">Edit Profile</button>
       </nav>
-    </div> -->
+    </div>
     <main class="mdl-layout__content">
       <div class="page-content">
 
 
         <!-- SIGN UP -->
-        <div style="display: none;" id="sign-up-failure-alert" class="auth-form-alert alert alert-danger" role="alert">Sorry, there was an issue creating your account.  Use a different email and try again.</div>
+        <div style="display: none;" id="sign-up-failure-alert" class="auth-form-alert alert alert-danger" role="alert">Sorry, there was an issue creating your account. Use a different email and try again.</div>
         <div style="display:none" id="sign-up-container" class="form-card mdl-card mdl-shadow--2dp">
           <div class="form-title mdl-card__title">
             <h2 class="form-header mdl-card__title-text">Sign Up</h2>
           </div>
-          <form  id="sign-up">
+          <form id="sign-up">
             <fieldset style="display:flex;">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" name="credentials[email]" id="sign-up-email">
@@ -70,84 +71,97 @@
         </div>
 
 
-          <!-- SIGN IN -->
-          <div style="display: none;" id="sign-up-success-alert" class="auth-form-alert alert alert-success" role="alert">You successfully created an account!</div>
+        <!-- SIGN IN -->
+        <div style="display: none;" id="sign-up-success-alert" class="auth-form-alert alert alert-success" role="alert">You successfully created an account!</div>
 
-          <div id="sign-in-container" class="form-card mdl-card mdl-shadow--2dp">
-            <div class="form-title mdl-card__title">
-              <h2 class="form-header mdl-card__title-text">Sign In</h2>
-            </div>
-            <form id="sign-in">
-              <fieldset style="display:flex;">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" name="credentials[email]" id="sign-in-email">
-                  <label class="mdl-textfield__label" for="sign-in-email">Email</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="password" name="credentials[password]" id="sign-in-password">
-                  <label class="mdl-textfield__label" for="sign-in-password">Password</label>
-                </div>
-
-                <button type="submit" name="submit" class="form-button mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-              Sign In
-            </button>
-              </fieldset>
-            </form>
-            <div>
-              <p>Don't have an account?
-                <!-- Flat button -->
-                <span id="sign-up-show" class="form-link">Sign Up</span>
-              </p>
-            </div>
+        <div id="sign-in-container" class="form-card mdl-card mdl-shadow--2dp">
+          <div class="form-title mdl-card__title">
+            <h2 class="form-header mdl-card__title-text">Sign In</h2>
           </div>
-
-
-          <!-- CHANGE PASSWORD -->
-          <form style="display:none;" id="change-password">
+          <form id="sign-in">
             <fieldset style="display:flex;">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="password" name="passwords[old]" id="change-password-old">
-                <label class="mdl-textfield__label" for="change-password-old">Old Password</label>
+                <input class="mdl-textfield__input" type="text" name="credentials[email]" id="sign-in-email">
+                <label class="mdl-textfield__label" for="sign-in-email">Email</label>
               </div>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="password" name="passwords[new]" id="change-password-new">
-                <label class="mdl-textfield__label" for="change-password-new">New Password</label>
+                <input class="mdl-textfield__input" type="password" name="credentials[password]" id="sign-in-password">
+                <label class="mdl-textfield__label" for="sign-in-password">Password</label>
               </div>
-              <button type="submit" name="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-        Change Password
-      </button>
+
+              <button type="submit" name="submit" class="form-button mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              Sign In
+            </button>
             </fieldset>
           </form>
-
-          <section style="display:none;" class="board-container">
-
-
-            <h1>Game Board</h1>
-            <h2>Next Play: <span id="next-play">X</span></h2>
-            <div id="board" class="game-board">
-              <div class="row">
-                <div data-cell="0" class="col-xs-4"></div>
-                <div data-cell="1" class="col-xs-4"></div>
-                <div data-cell="2" class="col-xs-4"></div>
-              </div>
-              <div class="row">
-                <div data-cell="3" class="col-xs-4"></div>
-                <div data-cell="4" class="col-xs-4"></div>
-                <div data-cell="5" class="col-xs-4"></div>
-              </div>
-              <div class="row">
-                <div data-cell="6" class="col-xs-4"></div>
-                <div data-cell="7" class="col-xs-4"></div>
-                <div data-cell="8" class="col-xs-4"></div>
-              </div>
-            </div>
-            <div>
-              <button id="new-game">New Game</button>
-            </div>
-          </section>
+          <div>
+            <p>Don't have an account?
+              <!-- Flat button -->
+              <span id="sign-up-show" class="form-link">Sign Up</span>
+            </p>
+          </div>
         </div>
+
+        <!-- GAME OPTONS -->
+        <div style="display:none" id="game-options-container" class="form-card mdl-card mdl-shadow--2dp">
+          <div class="form-title mdl-card__title">
+            <h2 class="form-header mdl-card__title-text">Game Options</h2>
+          </div>
+          <div class="form-options-container">
+            <!-- Colored raised button -->
+            <button id="game-options-new-game" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+      New Game
+    </button>
+
+  </div>
+        </div>
+
+        <!-- CHANGE PASSWORD -->
+        <form style="display:none;" id="change-password">
+          <fieldset style="display:flex;">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="password" name="passwords[old]" id="change-password-old">
+              <label class="mdl-textfield__label" for="change-password-old">Old Password</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="password" name="passwords[new]" id="change-password-new">
+              <label class="mdl-textfield__label" for="change-password-new">New Password</label>
+            </div>
+            <button type="submit" name="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+        Change Password
+      </button>
+          </fieldset>
+        </form>
+
+        <!-- GAME BOARD -->
+        <section id="game-board-container" style="display:none;" class="board-container">
+
+          <h1>Game Board</h1>
+          <h2>Next Play: <span id="next-play">X</span></h2>
+          <div id="board" class="game-board">
+            <div class="row">
+              <div data-cell="0" class="col-xs-4"></div>
+              <div data-cell="1" class="col-xs-4"></div>
+              <div data-cell="2" class="col-xs-4"></div>
+            </div>
+            <div class="row">
+              <div data-cell="3" class="col-xs-4"></div>
+              <div data-cell="4" class="col-xs-4"></div>
+              <div data-cell="5" class="col-xs-4"></div>
+            </div>
+            <div class="row">
+              <div data-cell="6" class="col-xs-4"></div>
+              <div data-cell="7" class="col-xs-4"></div>
+              <div data-cell="8" class="col-xs-4"></div>
+            </div>
+          </div>
+          <div>
+            <button id="new-game">New Game</button>
+          </div>
+        </section>
+      </div>
     </main>
-    </div>
+  </div>
 </body>
 
 </html>

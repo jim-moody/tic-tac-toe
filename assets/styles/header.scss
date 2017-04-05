@@ -1,0 +1,23 @@
+div:focus {
+    outline:none;
+}
+.header-drawer {
+  text-align: initial;
+  justify-content: left;
+
+  button {
+    border-bottom: 1px solid lightgray;
+    text-align: left;
+    width: 100%;
+    text-transform: none;
+    font-size: 1.3em;
+    height: auto;
+    padding: 10px;
+
+    &:nth-child(1) {
+      border-top: 1px solid lightgray;
+
+    }
+  }
+
+}

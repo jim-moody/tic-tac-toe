@@ -1,18 +1,23 @@
 'use strict'
 
 import store from '../store'
-import {signUpElement, signInElement} from './selectors'
+import {signUpContainer, signInContainer,
+  signUpSuccessAlert, signUpFailureAlert} from './selectors'
+import { gameOptionsContainer } from '../games/selectors'
+
 const signUpSuccess = (data) => {
   console.log(data)
-  $('#sign-up-success-alert').slideToggle().delay(2000).slideToggle()
-  signUpElement.hide()
-  signInElement.show()
+  signUpSuccessAlert.slideToggle().delay(2000).slideToggle()
+  signUpContainer.hide()
+  signInContainer.show()
 }
 const signUpFailure = (error) => {
-  $('#sign-up-failure-alert').slideToggle().delay(2000).slideToggle()
+  signUpFailureAlert.slideToggle().delay(2000).slideToggle()
   console.error(error)
 }
 const signInSuccess = ({user}) => {
+  signInContainer.hide()
+  gameOptionsContainer.show()
   console.log(user)
   store.user = user
 }

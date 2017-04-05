@@ -13,9 +13,17 @@ header a:hover {
   background-color: darken($primary-color, 10%);
 }
 
-.mdl-layout__drawer {
-  text-align: initial;
+.form-options-container {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  align-items: center;
+
+    button {
+      width: 80%;
+    }
 }
+
 
 .form-card {
   margin: 5% auto 0;

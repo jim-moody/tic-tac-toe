@@ -1,9 +1,11 @@
 'use strict'
 import store from '../store'
 import { determineOutcome } from './helpers'
-import { boardTiles } from './selectors'
+import { boardTiles, gameBoardContainer } from './selectors'
 
 const onNewGameSuccess = ({game}) => {
+  $('h1').text('')
+  gameBoardContainer.show()
   store.currentGame = game
   console.log(store.currentGame)
 }

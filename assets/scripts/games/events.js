@@ -4,10 +4,11 @@ import store from '../store'
 import { determineOutcome } from './helpers'
 import api from './api'
 import ui from './ui'
-import { boardTiles } from './selectors'
+import { boardTiles, gameOptionsContainer, gameOptionsNewGame, newGame } from './selectors'
 
 const onTileClick = (event) => {
   const target = $(event.target)
+  console.log(target.text())
 
   // if the cell is empty, set the text to be whatever the current marker is
   if (!target.text()) {
@@ -34,11 +35,27 @@ const onTileClick = (event) => {
       .catch(ui.onUpdateGameFailure)
   }
 }
-
+// const onTileEnter = (event) => {
+//   const target = $(event.target)
+//   if (!target.text()) {
+//     target.text(store.currentPlay)
+//     target.data('temporary', 'true')
+//   }
+// }
+// const onTileLeave = (event) => {
+//   const target = $(event.target)
+//   if (target.data('temporary')) {
+//     target.text('')
+//     target.data('temporary', 'false')
+//   }
+//   console.log(target.data('temporary'))
+// }
 // Initiated by user action or by page load/refresh
 const onNewGame = () => {
   // first play is always an "X"
   store.currentPlay = 'X'
+  // hide the gameOptionsContainer if its shown
+  gameOptionsContainer.hide()
   // create game in database, then update store
   api.createGame().then(ui.onNewGameSuccess).catch(ui.onNewGameFailure)
   // clear the board of all text
@@ -50,7 +67,10 @@ const onNewGame = () => {
 
 const addEventHandlers = () => {
   boardTiles.on('click', onTileClick)
-  $('#new-game').on('click', onNewGame)
+  // boardTiles.on('mouseenter', onTileEnter)
+  // boardTiles.on('mouseleave', onTileLeave)
+  gameOptionsNewGame.on('click', onNewGame)
+  newGame.on('click', onNewGame)
 }
 
 module.exports = {
