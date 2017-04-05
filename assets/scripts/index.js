@@ -2,18 +2,14 @@
 
 const setAPIOrigin = require('../../lib/set-api-origin')
 const config = require('./config')
-import { onNewGame, addEventHandlers } from './games/events'
-import store from './store'
+import { addEventHandlers } from './games/events'
+import { addHandlers } from './auth/events'
 
 $(() => {
   setAPIOrigin(location, config)
-  store.user = {
-    id: 1,
-    email: 'test@test.com',
-    token: 'BAhJIiU0ODYzODQ2MDdlOWM4YTExMDk5MDNiNzkyNzdkYzU0MgY6BkVG--b7efdae2dfa113887146b3554a675d80586a0794'
-  }
-  onNewGame()
+  // onNewGame()
   addEventHandlers()
+  addHandlers()
 })
 
 // use require with a reference to bundle the file and use it in this file

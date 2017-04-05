@@ -1,0 +1,25 @@
+main form {
+  float: left;
+  border: 1px solid lightgray;
+  max-width: 300px;
+  margin: 25px 25px 0 25px;
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 200px;
+}
+h1 {
+  display: inline-block;
+  margin-left: 10%;
+  margin-right: auto;
+
+}
+
+.mdl-textfield__label {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1200px) {
+  header form {
+    clear: both;
+  }
+}
