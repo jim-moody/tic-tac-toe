@@ -1,32 +1,45 @@
 'use strict'
 import store from '../store'
 import {determineOutcome, getGameStatistics} from './helpers'
-import {boardTiles, gameBoardContainer, gameStatisticsContainer} from './selectors'
-import {hideAllContainers} from '../helpers'
+import gameSelectors from './selectors'
+import {hideAllContainersExcept, hideAllAlerts} from '../helpers'
 import {OUTCOME} from './constants'
 
 const onNewGameSuccess = ({game}) => {
-  $('h1').text('')
-  hideAllContainers()
-  gameBoardContainer.show()
+  // clear the "winner" alert
+  $('#winner-header').hide('slow')
+
+  // clear the screen
+  hideAllAlerts()
+  hideAllContainersExcept([gameSelectors.gameBoard.container])
+
+  // clear the board of all text
+  gameSelectors.gameBoard.cells.text('')
+
+  // // show the game board if hidden
+  !gameSelectors.gameBoard.container.is(':visible') && gameSelectors.gameBoard.container.slideDown()
+
+  // set the current game to the store
   store.currentGame = game
-  console.log(store.currentGame)
 }
 const onNewGameFailure = (data) => {
   console.log(data)
 }
 const onUpdateGameSuccess = ({game}) => {
+  // if the game is over
   if (game.over) {
     const {winner} = determineOutcome(game.cells)
     if (winner === OUTCOME.DRAW) {
-      // set the header text to the winning marker
+      // set the text to be that it was a draw
       $('#winner-header').text('Draw')
     } else {
+      // set the text to be who won
       $('#winner-header').text(winner + ' wins!')
     }
-    // turn off the click handlers on the board
-
-    boardTiles.off('click')
+    // display the outcome to the user
+    $('#winner-header').slideToggle()
+    // turn off the click handlers on the board because the game is over
+    gameSelectors.gameBoard.cells.off('click')
   }
 }
 
@@ -38,16 +51,16 @@ const onShowStatisticsSuccess = ({games}) => {
   const {wins, losses, draws, winPercentage} = getGameStatistics(games)
 
   // set the text for each of the relevant data pieces
-  gameStatisticsContainer.wins.text(wins)
-  gameStatisticsContainer.losses.text(losses)
-  gameStatisticsContainer.draws.text(draws)
-  gameStatisticsContainer.winPercentage.text(winPercentage(1) + '%')
+  gameSelectors.gameStatistics.wins.text(wins)
+  gameSelectors.gameStatistics.losses.text(losses)
+  gameSelectors.gameStatistics.draws.text(draws)
+  gameSelectors.gameStatistics.winPercentage.text(winPercentage(1) + '%')
 
   // clear the screen
-  hideAllContainers()
+  hideAllContainersExcept()
 
   // show the game stats
-  gameStatisticsContainer.container.show()
+  gameSelectors.gameStatistics.container.show()
 }
 const onShowStatisticsFailure = (error) => {
   console.error(error)

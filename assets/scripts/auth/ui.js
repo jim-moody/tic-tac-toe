@@ -1,47 +1,93 @@
 'use strict'
 
 import store from '../store'
-import {signUpContainer, signInContainer,
-  signUpSuccessAlert, signUpFailureAlert, changePasswordContainer} from './selectors'
-import { gameOptionsContainer } from '../games/selectors'
-import { menu } from '../menu/selectors'
+import authSelectors from './selectors'
+import menuSelectors from '../menu/selectors'
+import { hideAllContainersExcept, hideAllAlerts } from '../helpers'
+import { showAlert } from '../animations'
+import { onNewGame } from '../games/events'
 
 const signUpSuccess = (data) => {
-  console.log(data)
-  signUpSuccessAlert.slideToggle().delay(2000).slideToggle()
-  signUpContainer.hide()
-  signInContainer.show()
+  // clear any alerts
+  hideAllAlerts()
+
+  // let the user know that the sign up worked
+  showAlert(authSelectors.alerts.signUpSuccess)
+
+  // hide the sign up form
+  authSelectors.signUp.container.hide()
+
+  // show the sign in form
+  // TODO sign the user in automatically
+  authSelectors.signIn.container.show()
 }
-const signUpFailure = (error) => {
-  signUpFailureAlert.slideToggle().delay(2000).slideToggle()
-  console.error(error)
+const signUpFailure = () => {
+  // clear alerts (like success alerts)
+  hideAllAlerts()
+
+  // let the user know the sign up failed
+  showAlert(authSelectors.alerts.signUpFailure)
 }
 const signInSuccess = ({user}) => {
-  menu.container.show()
-  signInContainer.hide()
-  gameOptionsContainer.show()
-  console.log(user)
+  // clear the alerts
+  hideAllAlerts()
+
+  // clear containers
+  hideAllContainersExcept()
+
+  // show the user's email in the header
+  menuSelectors.menu.email.text(user.email)
+
+  // show the header now that the user is signed in
+  menuSelectors.menu.container.slideDown('fast')
+
+  // clear/reset the sign in form in case the user gets back there somehow
+  authSelectors.signIn.email.val('')
+  authSelectors.signIn.password.val('')
+  authSelectors.signIn.email.parent('div').toggleClass('is-dirty')
+  authSelectors.signIn.password.parent('div').toggleClass('is-dirty')
+
+  // put the user info in the store
   store.user = user
+
+  // start a new game, navigation is handled in that function
+  onNewGame()
 }
 const signInFailure = (error) => {
   console.error(error)
 }
 const signOutSuccess = () => {
-  console.log('Signed out', store)
+  // clear the screen
+  hideAllContainersExcept()
+
+  // hide the navbar because the user is logged out
+  menuSelectors.menu.container.hide()
+
+  // show the header message since the navbar is now hidden
+  $('.main-header').show()
+
+  // show the sign in container because thats all they can do
+  authSelectors.signIn.container.show()
+
+  // let the user know that they are signed out
+  showAlert(authSelectors.alerts.signOutSuccess)
+
+  // clear out the store so another user can sign in
   store.user = null
-  console.log('Signed out', store)
 }
 const signOutFailure = (error) => {
+  // TODO hook this up to an alert message
   console.error(error)
 }
 const changePasswordSuccess = (data) => {
-  changePasswordContainer.slideDown()
-  signInContainer.slideUp()
-  $('#password-change-success-alert').slideToggle().delay(2000).slideToggle()
-  console.log('success:', data)
+  // TODO navigate somwehere?
+
+  // let the user know the password was changed
+  showAlert(authSelectors.alerts.changePasswordSuccess)
 }
-const changePasswordFailure = (error) => {
-  console.error(error)
+const changePasswordFailure = () => {
+  // let the user know the password was not changed
+  showAlert(authSelectors.alerts.changePasswordFailure)
 }
 module.exports = {
   signUpSuccess,

@@ -5,6 +5,13 @@
 // import { board } from './selectors'
 import {OUTCOME} from './constants'
 
+// TODO use this for AI
+const getRandomInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min)) + min
+}
+
+// get all the text from all the cells in the RENDERED board into an array
+// if a cell is empty, set its value to be '' in the arrray
 const getCellsFromBoard = () => {
   const cells = []
   $('#board .row').toArray().forEach((row) => {
@@ -12,25 +19,36 @@ const getCellsFromBoard = () => {
       cells.push($(div).text().toLowerCase() || '')
     })
   })
-  console.log(cells)
   return cells
 }
 
-/*
-returns object with following possibilities
-  {
-  over: true/false
-  winner: 'X', 'O', 'Draw'
+// TODO use this for AI
+const getRandomEmptyCellIndex = () => {
+  let index = 0
+  const cells = getCellsFromBoard()
+  const indexedCells = cells.map((e, i) => {
+    return {index: i, value: e}
+  })
+  const emptyCells = indexedCells.filter((cell) => !cell.value)
+  if (emptyCells.length > 0) {
+    const randomIndex = getRandomInt(0, emptyCells.length)
+    index = emptyCells[randomIndex].index
+  }
+  return index
 }
-*/
+
+// returns an outcome object
 const determineOutcome = (optionalCells) => {
-  // console.log(getCellsFromBoard())
+  // if no cells are passed in, just determine the outcome of the current rendered board
   const cellArray = optionalCells || getCellsFromBoard()
-  // console.log(cellArray)
+
+  // create initial outcome object and assume the game is not over
   const outcome = {
     over: false
   }
 
+  // get all the possible combinations of cells that could win:
+  // 3 rows, 3 columns, 2 diagonals
   const row1 = cellArray[0] + cellArray[1] + cellArray[2]
   const row2 = cellArray[3] + cellArray[4] + cellArray[5]
   const row3 = cellArray[6] + cellArray[7] + cellArray[8]
@@ -39,6 +57,8 @@ const determineOutcome = (optionalCells) => {
   const col3 = cellArray[2] + cellArray[5] + cellArray[8]
   const diagonal1 = cellArray[0] + cellArray[4] + cellArray[8]
   const diagonal2 = cellArray[2] + cellArray[4] + cellArray[6]
+
+  // put the winning combinations into an array for easier manipulation
   const winningCombinations = [
     row1,
     row2,
@@ -49,29 +69,32 @@ const determineOutcome = (optionalCells) => {
     diagonal1,
     diagonal2
   ]
+
+  // check if 3 X's in a row exist in any of the winning combinations
   if (winningCombinations.some((combination) => combination.toLowerCase() === 'xxx')) {
     outcome.over = true
     outcome.winner = OUTCOME.X
+
+    // check if 3 O's in a row exist in any of the winning combinations
   } else if (winningCombinations.some((combination) => combination.toLowerCase() === 'ooo')) {
     outcome.over = true
     outcome.winner = OUTCOME.O
+
+    // check if the board is completely full
+    // if it is full, since we already know there are no winners
+    // we can now say it must be a draw
   } else if (cellArray.every((cell) => cell)) {
     outcome.over = true
     outcome.winner = OUTCOME.DRAW
   }
-  console.log(outcome)
+
+  // return the outcome object
+  // over: Boolean
+  // winner: 'X', 'O', 'DRAW'
   return outcome
 }
 
-/*
-returns object like this:
-{
-  wins: Number
-  losses: Number
-  draws: Number
-  win %: String
-}
-*/
+// helper function to calculate win percentage with ties included
 const calculateWinPercentage = (wins, draws, totalGames, decimalPlaces) => {
   console.log(decimalPlaces)
   if (totalGames > 0) {
@@ -81,6 +104,8 @@ const calculateWinPercentage = (wins, draws, totalGames, decimalPlaces) => {
     return 0
   }
 }
+
+// constructor for our Stats object
 const Stats = function (wins, losses, draws) {
   this.wins = wins
   this.losses = losses
@@ -93,15 +118,20 @@ const Stats = function (wins, losses, draws) {
   }
 }
 
+// helper function to create our stats object with the data retrieved from the
+// backend
 const getGameStatistics = (games) => {
-  const wins = 0
-  const losses = 0
-  const draws = 0
-  console.log('made it here')
-  const stats = new Stats(wins, losses, draws)
+  // intialize the statistics object
+  const stats = new Stats(0, 0, 0)
+  // cycle through the games from the db
   games.forEach((game) => {
+    // we only care about games that ended, ignore the ones that didnt
     if (game.over) {
+      // figure out who won based on the end state of the game's cells
       const winner = determineOutcome(game.cells).winner
+
+      // TODO make this better
+      // increment the winner in the stats object based on who won each game
       if (winner === OUTCOME.X) {
         stats.wins++
       } else if (winner === OUTCOME.O) {
@@ -112,12 +142,11 @@ const getGameStatistics = (games) => {
     }
   })
 
-  // stats.X, stats.O
-
   return stats
 }
 module.exports = {
   determineOutcome,
   getCellsFromBoard,
-  getGameStatistics
+  getGameStatistics,
+  getRandomEmptyCellIndex
 }

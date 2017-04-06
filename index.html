@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -28,6 +28,7 @@
         <span class="mdl-layout-title">Tic Tac Toe</span>
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
+        <p id="menu-email" class="menu-text">Email</p>
       </div>
     </header>
     <div class="mdl-layout__drawer">
@@ -35,7 +36,8 @@
       <nav class="header-drawer mdl-navigation">
         <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-show-game-options">Play Game</button>
         <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-view-statistics">Game Statistics</button>
-        <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-manage-profile">Change Password</button>
+        <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-change-password">Change Password</button>
+        <button class="mdl-button mdl-button--colored mdl-js-button" id="sign-out">Sign Out</button>
       </nav>
     </div>
     <main class="mdl-layout__content">
@@ -43,7 +45,6 @@
         <h1 class="main-header"> Play Tic Tac Toe</h1>
 
         <!-- SIGN UP -->
-
         <div style="display:none" id="sign-up-container" class="form-card mdl-card mdl-shadow--2dp">
           <div class="form-title mdl-card__title">
             <h2 class="form-header mdl-card__title-text">Sign Up</h2>
@@ -68,15 +69,17 @@
             </fieldset>
           </form>
         </div>
-          <div style="display: none;" id="sign-up-failure-alert" class="auth-form-alert alert alert-danger" role="alert">Sorry, there was an issue creating your account. Use a different email and try again.</div>
+        <div style="display: none;" id="sign-up-failure-alert" class="auth-form-alert alert alert-danger" role="alert">Sorry, there was an issue creating your account. Use a different email and try again.</div>
+
+
 
 
         <!-- SIGN IN -->
-
         <div id="sign-in-container" class="form-card mdl-card mdl-shadow--2dp">
           <div class="form-title mdl-card__title">
             <h2 class="form-header mdl-card__title-text">Sign in to play</h2>
           </div>
+
           <form id="sign-in">
             <fieldset style="display:flex;">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -100,42 +103,9 @@
             </p>
           </div>
         </div>
+        <!-- SIGN IN ALERTS-->
         <div style="display: none;" id="sign-up-success-alert" class="auth-form-alert alert alert-success" role="alert">You successfully created an account!</div>
-
-
-        <!-- GAME OPTONS -->
-        <div style="display:none" id="game-options-container" class="form-card mdl-card mdl-shadow--2dp">
-          <div class="form-title mdl-card__title">
-            <h2 class="form-header mdl-card__title-text">Game Options</h2>
-          </div>
-          <div class="form-options-container">
-            <!-- Colored raised button -->
-            <button id="game-options-new-game" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-      New Game
-    </button>
-
-          </div>
-        </div>
-        <!-- MANAGE PROFILE -->
-        <div style="display:none" id="manage-profile-container" class="form-card mdl-card mdl-shadow--2dp">
-          <div class="form-title mdl-card__title">
-            <h2 class="form-header mdl-card__title-text">Manage Profile</h2>
-          </div>
-          <div class="static-container">
-            <ul class="demo-list-icon mdl-list">
-              <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-      <i class="material-icons mdl-list__item-icon">email</i>
-      <span id="manage-profile-email"></span>
-                </span>
-              </li>
-              <li class="mdl-list__item">
-                <button id="manage-profile-change-password" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Change Password</button>
-              </li>
-            </ul>
-
-          </div>
-        </div>
+        <div style="display: none;" id="sign-out-success-alert" class="auth-form-alert alert alert-success" role="alert">You successfully signed out</div>
 
         <!-- CHANGE PASSWORD -->
         <div style="display:none;" id="change-password-container" class="form-card mdl-card mdl-shadow--2dp">
@@ -158,54 +128,58 @@
             </fieldset>
           </form>
         </div>
+        <!-- CHANGE PASSWORD ALERTS -->
         <div style="display: none;" id="change-password-empty-alert" class="auth-form-alert alert alert-danger" role="alert">Please enter your current and new password</div>
-        <div style="display: none;" id="password-change-success-alert" class="auth-form-alert alert alert-success" role="alert">Password changed successfully</div>
+        <div style="display: none;" id="change-password-success-alert" class="auth-form-alert alert alert-success" role="alert">Password changed successfully</div>
+        <div style="display: none;" id="change-password-failure-alert" class="auth-form-alert alert alert-danger" role="alert">There was an issue updating your password. Please check your entries and try again.</div>
 
 
         <!-- GAME BOARD -->
-        <section id="game-board-container" style="display:none;" class="board-container">
+        <div style="display:none;" id="winner-header" class="game-board-alert alert alert-success" role="alert">X Wins!</div>
 
-          <h1 id="winner-header"></h1>
-          <h2>Next Play: <span id="next-play">X</span></h2>
-          <div id="board" class="game-board">
-            <div class="row">
-              <div data-cell="0" class="col-xs-4"></div>
-              <div data-cell="1" class="col-xs-4"></div>
-              <div data-cell="2" class="col-xs-4"></div>
+        <section id="game-board-container" style="display:none;" class="board-container">
+          <p><span id="next-play">X</span> turn</p>
+          <div id="board" class="game-board ">
+            <div class="row ">
+              <div data-cell="0 " class="col-xs-4 "></div>
+              <div data-cell="1 " class="col-xs-4 "></div>
+              <div data-cell="2 " class="col-xs-4 "></div>
             </div>
-            <div class="row">
-              <div data-cell="3" class="col-xs-4"></div>
-              <div data-cell="4" class="col-xs-4"></div>
-              <div data-cell="5" class="col-xs-4"></div>
+            <div class="row ">
+              <div data-cell="3 " class="col-xs-4 "></div>
+              <div data-cell="4 " class="col-xs-4 "></div>
+              <div data-cell="5 " class="col-xs-4 "></div>
             </div>
-            <div class="row">
-              <div data-cell="6" class="col-xs-4"></div>
-              <div data-cell="7" class="col-xs-4"></div>
-              <div data-cell="8" class="col-xs-4"></div>
+            <div class="row ">
+              <div data-cell="6 " class="col-xs-4 "></div>
+              <div data-cell="7 " class="col-xs-4 "></div>
+              <div data-cell="8 " class="col-xs-4 "></div>
             </div>
+
           </div>
-          <div class="game-footer">
+          <div id="new-game-container" class="game-footer">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="new-game">New Game</button>
           </div>
+
         </section>
 
         <!-- GAME STATs -->
         <div style="display:none;" id="game-stats-container" class="form-card mdl-card mdl-shadow--2dp">
           <div class="form-title mdl-card__title">
-            <h2 class="form-header mdl-card__title-text">Game Statistics</h2>
+            <h2 class="form-header mdl-card__title-text ">Game Statistics</h2>
           </div>
           <ul class="demo-list-icon mdl-list">
             <li class="top-item mdl-list__item">
-              <span class="mdl-list__item-primary-content">Win %</span>
+              <span class="mdl-list__item-primary-content ">Win %</span>
               <span id="game-stats-win-percentage" class="mdl-list__item-secondary-content"></span>
             </li>
             <li class="mdl-list__item">
               <span class="mdl-list__item-primary-content">Wins</span>
-              <span id="game-stats-wins" class="mdl-list__item-secondary-content"></span>
+              <span id="game-stats-wins" class="mdl-list__item-secondary-content "></span>
             </li>
             <li class="mdl-list__item">
               <span class="mdl-list__item-primary-content">Losses</span>
-              <span id="game-stats-losses" class="mdl-list__item-secondary-content"></span>
+              <span id="game-stats-losses" class="mdl-list__item-secondary-content "></span>
             </li>
             <li class="mdl-list__item">
               <span class="mdl-list__item-primary-content">Draws</span>

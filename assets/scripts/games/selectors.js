@@ -1,12 +1,21 @@
 'use strict'
+/*
+This file defines the different selectors for the games forms (DRY)
+Each object is like a "page object" and it contains the elements that make it up
+*/
 
-const board = $('#board')
-const boardTiles = board.find('.row div')
-const gameBoardContainer = $('#game-board-container')
-const gameOptionsContainer = $('#game-options-container')
-const gameOptionsNewGame = $('#game-options-new-game')
+// game board
+const gameBoard = {
+  container: $('#game-board-container'),
+  board: $('#board'),
+  cells: $('#board').find('.row div')
+}
+
+// new game button
 const newGame = $('#new-game')
-const gameStatisticsContainer = {
+
+// game statistics dashboard
+const gameStatistics = {
   container: $('#game-stats-container'),
   wins: $('#game-stats-wins'),
   losses: $('#game-stats-losses'),
@@ -16,11 +25,7 @@ const gameStatisticsContainer = {
 }
 
 module.exports = {
-  board,
-  boardTiles,
-  gameBoardContainer,
-  gameOptionsContainer,
-  gameOptionsNewGame,
   newGame,
-  gameStatisticsContainer
+  gameStatistics,
+  gameBoard
 }

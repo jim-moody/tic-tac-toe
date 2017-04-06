@@ -1,7 +1,11 @@
 'use strict'
 
-const showAlert = (jQueryElement) => {
-  jQueryElement.slideToggle().delay(2000).slideToggle()
+// good to store all animations in one place so its consistent
+import { hideAllAlerts } from './helpers'
+
+const showAlert = (element) => {
+  hideAllAlerts()
+  element.slideToggle()
 }
 module.exports = {
   showAlert

@@ -2,6 +2,7 @@
 import store from '../store'
 import config from '../config'
 
+// creates a new game for the given user
 const createGame = () => {
   return $.ajax({
     method: 'POST',
@@ -11,6 +12,8 @@ const createGame = () => {
     }
   })
 }
+
+// updates a game
 const updateGame = (cell, gameId, over) => {
   return $.ajax({
     method: 'PATCH',
@@ -26,6 +29,8 @@ const updateGame = (cell, gameId, over) => {
     }
   })
 }
+
+// returns all games for a user
 const gamesIndex = () => {
   return $.ajax({
     method: 'GET',
@@ -35,8 +40,6 @@ const gamesIndex = () => {
     }
   })
 }
-
-// const up
 
 module.exports = {
   createGame,
