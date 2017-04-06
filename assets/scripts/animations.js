@@ -7,6 +7,11 @@ const showAlert = (element) => {
   hideAllAlerts()
   element.slideToggle()
 }
+const showTemporaryAlert = (element) => {
+  hideAllAlerts()
+  element.slideToggle().delay(2000).slideToggle()
+}
 module.exports = {
-  showAlert
+  showAlert,
+  showTemporaryAlert
 }

@@ -4,7 +4,7 @@ import store from '../store'
 import authSelectors from './selectors'
 import menuSelectors from '../menu/selectors'
 import { hideAllContainersExcept, hideAllAlerts } from '../helpers'
-import { showAlert } from '../animations'
+import { showAlert, showTemporaryAlert } from '../animations'
 import { onNewGame } from '../games/events'
 
 const signUpSuccess = (data) => {
@@ -70,7 +70,7 @@ const signOutSuccess = () => {
   authSelectors.signIn.container.show()
 
   // let the user know that they are signed out
-  showAlert(authSelectors.alerts.signOutSuccess)
+  showTemporaryAlert(authSelectors.alerts.signOutSuccess)
 
   // clear out the store so another user can sign in
   store.user = null
