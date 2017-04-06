@@ -19,14 +19,17 @@ header a:hover {
   flex-grow: 1;
   align-items: center;
 
-    button {
-      width: 80%;
-    }
+  button {
+    width: 80%;
+  }
 }
-
 
 .form-card {
   margin: 5% auto 0;
+
+  p {
+    font-size: 1.1em;
+  }
 }
 
 .form-link {

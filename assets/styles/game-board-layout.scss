@@ -1,7 +1,20 @@
-$border: 1px solid #000;
+$game-border: 1px solid $border-color;
 
 div {
   text-align: center;
+}
+.board-container {
+  padding:10px;
+}
+.game-footer {
+  border-top: $game-border;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+
+  button {
+    margin: 20px;
+  }
 }
 
 h1,
@@ -9,29 +22,51 @@ h2 {
   text-align: center;
 }
 
+#winner-header {
+  margin-left: 0;
+}
+
+.form-card {
+  .top-item {
+    font-weight: bold;
+  }
+
+  li:nth-child(n+2) {
+    border-top: $game-border;
+  }
+}
+
 .row {
+  margin: 0 auto;
+
   &:nth-child(-n+2) {
-    border-bottom: $border;
+    border-bottom: $game-border;
   }
 
   div {
     font-size: 10em;
     height: 175px;
     // text-align: center;
-
     &:hover {
       background-color: gray;
       cursor: pointer;
     }
 
     &:nth-child(-n+2) {
-      border-right: $border;
+      border-right: $game-border;
     }
   }
-
 }
 
 .game-board {
+  border: $game-border;
   margin: 0 auto;
   max-width: 500px;
+}
+
+@media only screen and (max-width: 400px) {
+  .row div {
+    font-size: 6em;
+    height: 120px;
+  }
 }

@@ -5,8 +5,10 @@ import gameSelectors from './games/selectors'
 const hideAllContainers = () => {
   authSelectors.signUpContainer.hide()
   authSelectors.signInContainer.hide()
+  authSelectors.changePasswordContainer.hide()
   gameSelectors.gameBoardContainer.hide()
   gameSelectors.gameOptionsContainer.hide()
+  gameSelectors.gameStatisticsContainer.container.hide()
 }
 
 module.exports = {

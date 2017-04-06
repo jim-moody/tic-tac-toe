@@ -2,8 +2,9 @@
 
 import store from '../store'
 import {signUpContainer, signInContainer,
-  signUpSuccessAlert, signUpFailureAlert} from './selectors'
+  signUpSuccessAlert, signUpFailureAlert, changePasswordContainer} from './selectors'
 import { gameOptionsContainer } from '../games/selectors'
+import { menu } from '../menu/selectors'
 
 const signUpSuccess = (data) => {
   console.log(data)
@@ -16,6 +17,7 @@ const signUpFailure = (error) => {
   console.error(error)
 }
 const signInSuccess = ({user}) => {
+  menu.container.show()
   signInContainer.hide()
   gameOptionsContainer.show()
   console.log(user)
@@ -33,6 +35,9 @@ const signOutFailure = (error) => {
   console.error(error)
 }
 const changePasswordSuccess = (data) => {
+  changePasswordContainer.slideDown()
+  signInContainer.slideUp()
+  $('#password-change-success-alert').slideToggle().delay(2000).slideToggle()
   console.log('success:', data)
 }
 const changePasswordFailure = (error) => {

@@ -4,7 +4,9 @@ import getFormFields from '../../../lib/get-form-fields'
 import api from './api'
 import ui from './ui'
 import {user} from '../store'
-import {signUpContainer, signInContainer} from './selectors'
+import {signUpContainer, signInContainer, showChangePassword, changePasswordContainer, changePasswordEmptyAlert} from './selectors'
+import {hideAllContainers} from '../helpers'
+import {showAlert} from '../animations'
 
 const onSignUp = (event) => {
   const data = getFormFields(event.target)
@@ -28,12 +30,19 @@ const onSignOut = (event) => {
 const onChangePassword = (event) => {
   event.preventDefault()
   const data = getFormFields(event.target)
-  console.log(user)
-  api.changePassword(data, user).then(ui.changePasswordSuccess).catch(ui.changePasswordFailure)
+  if (data.passwords.old && data.passwords.new) {
+    api.changePassword(data, user).then(ui.changePasswordSuccess).catch(ui.changePasswordFailure)
+  } else {
+    showAlert(changePasswordEmptyAlert)
+  }
 }
 const onShowSignUp = (event) => {
   signUpContainer.show()
   signInContainer.hide()
+}
+const onShowChangePassword = (event) => {
+  hideAllContainers()
+  changePasswordContainer.show()
 }
 
 const addHandlers = () => {
@@ -42,6 +51,7 @@ const addHandlers = () => {
   $('#sign-out').on('submit', onSignOut)
   $('#change-password').on('submit', onChangePassword)
   $('#sign-up-show').on('click', onShowSignUp)
+  showChangePassword.on('click', onShowChangePassword)
 }
 
 module.exports = {

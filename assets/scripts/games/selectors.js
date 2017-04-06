@@ -6,6 +6,14 @@ const gameBoardContainer = $('#game-board-container')
 const gameOptionsContainer = $('#game-options-container')
 const gameOptionsNewGame = $('#game-options-new-game')
 const newGame = $('#new-game')
+const gameStatisticsContainer = {
+  container: $('#game-stats-container'),
+  wins: $('#game-stats-wins'),
+  losses: $('#game-stats-losses'),
+  draws: $('#game-stats-draws'),
+  winPercentage: $('#game-stats-win-percentage')
+
+}
 
 module.exports = {
   board,
@@ -13,5 +21,6 @@ module.exports = {
   gameBoardContainer,
   gameOptionsContainer,
   gameOptionsNewGame,
-  newGame
+  newGame,
+  gameStatisticsContainer
 }

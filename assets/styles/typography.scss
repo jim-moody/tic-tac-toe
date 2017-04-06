@@ -1,5 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url( 'https://fonts.googleapis.com/css?family=Roboto');
 
 body {
   font-family: Roboto;
+  background-color: $secondary-background-color;
+}
+
+.main-header {
+  margin-left: 0;
 }

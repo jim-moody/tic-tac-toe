@@ -1,14 +1,23 @@
 'use strict'
 
-import menu from './selectors'
+import { menu } from './selectors'
 import game from '../games/selectors'
+import auth from '../auth/selectors'
 import { hideAllContainers } from '../helpers'
+import store from '../store'
+import gamesApi from '../games/api'
+import gamesUI from '../games/ui'
 
 const onShowStatistics = (event) => {
-
+  gamesApi.gamesIndex()
+    .then(gamesUI.onShowStatisticsSuccess)
+    .catch(gamesUI.onShowStatisticsFailure)
 }
 const onShowManageProfile = (event) => {
-
+  console.log(store)
+  hideAllContainers()
+  auth.changePasswordContainer.show()
+  $('#manage-profile-email').text(store.user.email)
 }
 const onShowGameOptions = (event) => {
   hideAllContainers()
@@ -20,9 +29,9 @@ const onMenuClick = (event) => {
 }
 const addMenuHandlers = () => {
   $('.header-drawer button').on('click', onMenuClick)
-  menu.showGameOptions.on('click', onShowGameOptions)
-  menu.showManageProfile.on('click', onShowManageProfile)
-  menu.showStatistics.on('click', onShowStatistics)
+  menu.gameOptions.on('click', onShowGameOptions)
+  menu.manageProfile.on('click', onShowManageProfile)
+  menu.gameStats.on('click', onShowStatistics)
 }
 
 module.exports = {

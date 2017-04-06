@@ -26,10 +26,20 @@ const updateGame = (cell, gameId, over) => {
     }
   })
 }
+const gamesIndex = () => {
+  return $.ajax({
+    method: 'GET',
+    url: config.apiOrigin + '/games',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
 
 // const up
 
 module.exports = {
   createGame,
-  updateGame
+  updateGame,
+  gamesIndex
 }
