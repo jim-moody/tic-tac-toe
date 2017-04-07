@@ -26,6 +26,8 @@ const alerts = {
   changePasswordEmpty: $('#change-password-empty-alert'),
   changePasswordSuccess: $('#change-password-success-alert'),
   changePasswordFailure: $('#change-password-failure-alert'),
+  signInEmpty: $('#sign-in-empty-alert'),
+  signInFailure: $('#sign-in-failure-alert'),
   signUpSuccess: $('#sign-up-success-alert'),
   signUpFailure: $('#sign-up-failure-alert'),
   signOutSuccess: $('#sign-out-success-alert'),

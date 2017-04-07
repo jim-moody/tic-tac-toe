@@ -53,8 +53,9 @@ const signInSuccess = ({user}) => {
   // start a new game, navigation is handled in that function
   onNewGame()
 }
-const signInFailure = (error) => {
-  console.error(error)
+const signInFailure = () => {
+  // show a message to the user that sign in didnt work
+  showAlert(authSelectors.alerts.signInFailure)
 }
 const signOutSuccess = () => {
   // clear the screen

@@ -25,8 +25,13 @@ const onSignIn = (event) => {
   // get the data from the form
   const data = getFormFields(event.target)
 
-  // send the data to the backend and handle success/fail
-  api.signIn(data).then(ui.signInSuccess).catch(ui.signInFailure)
+  // check to make sure theres data, otherwise show a message to the user
+  if (data.credentials.email && data.credentials.password) {
+    // send the data to the backend and handle success/fail
+    api.signIn(data).then(ui.signInSuccess).catch(ui.signInFailure)
+  } else {
+    showAlert(authSelectors.alerts.signInEmpty)
+  }
 }
 const onSignOut = (event) => {
   // prevent a page refresh
