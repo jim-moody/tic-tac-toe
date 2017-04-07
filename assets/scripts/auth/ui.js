@@ -17,6 +17,14 @@ const signUpSuccess = (data) => {
   // hide the sign up form
   authSelectors.signUp.container.hide()
 
+  // clear/reset the sign in form in case the user gets back there somehow
+  authSelectors.signUp.email.val('')
+  authSelectors.signUp.password.val('')
+  authSelectors.signUp.passwordConfirmation.val('')
+  authSelectors.signUp.email.parent('div').toggleClass('is-dirty')
+  authSelectors.signUp.password.parent('div').toggleClass('is-dirty')
+  authSelectors.signUp.passwordConfirmation.parent('div').toggleClass('is-dirty')
+
   // show the sign in form
   // TODO sign the user in automatically
   authSelectors.signIn.container.show()

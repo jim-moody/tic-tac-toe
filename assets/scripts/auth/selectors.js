@@ -7,7 +7,10 @@ Each object is like a "page object" and it contains the elements that make it up
 // sign up form
 const signUp = {
   container: $('#sign-up-container'),
-  form: $('#sign-up')
+  form: $('#sign-up'),
+  email: $('#sign-up-email'),
+  password: $('#sign-up-password'),
+  passwordConfirmation: $('#sign-up-password-confirmation')
 }
 
 // sign in form
