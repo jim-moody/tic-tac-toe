@@ -7,7 +7,7 @@ import { hideAllContainersExcept, hideAllAlerts } from '../helpers'
 import { showAlert, showTemporaryAlert } from '../animations'
 import { onNewGame } from '../games/events'
 import { hideFormLoader } from './helpers'
-import gameSelectors from  '../games/selectors'
+import gameSelectors from '../games/selectors'
 
 const signUpSuccess = (data) => {
   // clear any alerts

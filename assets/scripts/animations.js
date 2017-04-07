@@ -9,7 +9,7 @@ const showAlert = (element) => {
 }
 const showTemporaryAlert = (element) => {
   hideAllAlerts()
-  element.slideToggle().delay(2000).slideToggle()
+  element.slideDown().delay(2000).slideUp()
 }
 module.exports = {
   showAlert,
