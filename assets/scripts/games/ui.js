@@ -7,7 +7,7 @@ import {OUTCOME} from './constants'
 
 const onNewGameSuccess = ({game}) => {
   // clear the "winner" alert
-  $('#winner-header').hide('slow')
+  gameSelectors.gameBoard.resultOverlay.slideUp()
 
   // clear the screen
   hideAllAlerts()
@@ -35,13 +35,13 @@ const onUpdateGameSuccess = ({game}) => {
     const {winner} = determineOutcome(game.cells)
     if (winner === OUTCOME.DRAW) {
       // set the text to be that it was a draw
-      $('#winner-header').text('Draw')
+      gameSelectors.gameBoard.resultOverlay.text('Draw')
     } else {
       // set the text to be who won
-      $('#winner-header').text(winner + ' wins!')
+      gameSelectors.gameBoard.resultOverlay.text(winner + ' wins!')
     }
     // display the outcome to the user
-    $('#winner-header').slideToggle()
+    gameSelectors.gameBoard.resultOverlay.slideDown()
     // turn off the click handlers on the board because the game is over
     gameSelectors.gameBoard.cells.off('click')
   } else {

@@ -9,15 +9,16 @@ import ui from './ui'
 const onTileClick = (event) => {
   const target = $(event.target)
 
-  // turn off the click events until we have finished our api call
-  gameSelectors.gameBoard.cells.off('click')
-
-  // if the cell is empty, set the text to be whatever the current play is
+  // if the cell is empty, continue, else dont do anything
   if (!target.text()) {
+    // set the text to be whatever the current play is
     target.text(store.currentPlay)
     store.currentPlay = store.currentPlay === 'X'
       ? 'O'
       : 'X'
+
+    // turn off the click events until we have finished our api call
+    gameSelectors.gameBoard.cells.off('click')
 
     // determine if this game is over so it can be saved to db
     const over = determineOutcome().over

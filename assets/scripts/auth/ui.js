@@ -7,6 +7,8 @@ import { hideAllContainersExcept, hideAllAlerts } from '../helpers'
 import { showAlert, showTemporaryAlert } from '../animations'
 import { onNewGame } from '../games/events'
 import { hideFormLoader } from './helpers'
+import gameSelectors from  '../games/selectors'
+
 const signUpSuccess = (data) => {
   // clear any alerts
   hideAllAlerts()
@@ -80,6 +82,9 @@ const signInFailure = () => {
 const signOutSuccess = () => {
   // clear the screen
   hideAllContainersExcept()
+
+  // hide the result of the last game in case someone else signs in
+  gameSelectors.gameBoard.resultOverlay.hide()
 
   // hide the navbar because the user is logged out
   menuSelectors.menu.container.hide()
