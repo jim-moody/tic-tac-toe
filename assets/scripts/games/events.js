@@ -1,13 +1,16 @@
 'use strict'
 
 import store from '../store'
-import { determineOutcome } from './helpers'
+import {determineOutcome} from './helpers'
 import api from './api'
-import ui from './ui'
 import gameSelectors from './selectors'
+import ui from './ui'
 
 const onTileClick = (event) => {
   const target = $(event.target)
+
+  // turn off the click events until we have finished our api call
+  gameSelectors.gameBoard.cells.off('click')
 
   // if the cell is empty, set the text to be whatever the current play is
   if (!target.text()) {
@@ -15,9 +18,6 @@ const onTileClick = (event) => {
     store.currentPlay = store.currentPlay === 'X'
       ? 'O'
       : 'X'
-
-    // Show the next play to the user
-    // $('#next-play').text(store.currentPlay)
 
     // determine if this game is over so it can be saved to db
     const over = determineOutcome().over
@@ -35,10 +35,17 @@ const onTileClick = (event) => {
     // get the current gameId from the store to save to database
     const gameId = store.currentGame.id
 
+    // function to turn tile clicks back on
+    // this CANNOT be added to the onUpdateGameSuccess because
+    // it is a circular dependency
+    const turnOnTileClick = () => {
+      gameSelectors.gameBoard.cells.on('click', onTileClick)
+    }
+
     // save the new data to the database
-    api.updateGame(cell, gameId, over)
-      .then(ui.onUpdateGameSuccess)
-      .catch(ui.onUpdateGameFailure)
+    // make sure we turn clicks back on if its a success
+    // see above comment for why we are passing this into the .done function
+    api.updateGame(cell, gameId, over).done(turnOnTileClick).then(ui.onUpdateGameSuccess).catch(ui.onUpdateGameFailure)
   }
 }
 
@@ -47,14 +54,16 @@ const onNewGame = () => {
   // whenever there is a new game, the first play is always an "X"
   store.currentPlay = 'X'
 
-  // creates game in database
-  api.createGame().then(ui.onNewGameSuccess).catch(ui.onNewGameFailure)
-
   // this resets the tile click events. It should really be in the
-  // ui.newGameSuccess method but for some reason this wont work in that file if
-  // anyone can figure out why, let me know
-  gameSelectors.gameBoard.cells.off('click', onTileClick)
-  gameSelectors.gameBoard.cells.on('click', onTileClick)
+  // ui.newGameSuccess method but becaue its a circular dependency
+  // we have to pass it into the .done function
+  const resetTileClicks = () => {
+    gameSelectors.gameBoard.cells.off('click', onTileClick)
+    gameSelectors.gameBoard.cells.on('click', onTileClick)
+  }
+
+  // creates game in database and handles success/fail
+  api.createGame().done(resetTileClicks).then(ui.onNewGameSuccess).catch(ui.onNewGameFailure)
 }
 
 const addGameEventHandlers = () => {
