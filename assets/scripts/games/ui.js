@@ -11,7 +11,7 @@ const onNewGameSuccess = ({game}) => {
 
   // clear the screen
   hideAllAlerts()
-  hideAllContainersExcept([gameSelectors.gameBoard.container])
+  hideAllContainersExcept(gameSelectors.gameBoard.container)
 
   // clear the board of all text
   gameSelectors.gameBoard.cells.text('')
@@ -19,7 +19,7 @@ const onNewGameSuccess = ({game}) => {
   // highlight the correct turn
   highlightCurrentTurn(store.currentPlay)
 
-  // // show the game board if hidden
+  // show the game board if hidden
   !gameSelectors.gameBoard.container.is(':visible') && gameSelectors.gameBoard.container.slideDown()
 
   // set the current game to the store
