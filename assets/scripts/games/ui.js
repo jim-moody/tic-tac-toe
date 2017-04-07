@@ -1,6 +1,6 @@
 'use strict'
 import store from '../store'
-import {determineOutcome, getGameStatistics} from './helpers'
+import {determineOutcome, getGameStatistics, highlightCurrentTurn} from './helpers'
 import gameSelectors from './selectors'
 import {hideAllContainersExcept, hideAllAlerts} from '../helpers'
 import {OUTCOME} from './constants'
@@ -16,6 +16,9 @@ const onNewGameSuccess = ({game}) => {
   // clear the board of all text
   gameSelectors.gameBoard.cells.text('')
 
+  // highlight the correct turn
+  highlightCurrentTurn(store.currentPlay)
+
   // // show the game board if hidden
   !gameSelectors.gameBoard.container.is(':visible') && gameSelectors.gameBoard.container.slideDown()
 
@@ -23,6 +26,7 @@ const onNewGameSuccess = ({game}) => {
   store.currentGame = game
 }
 const onNewGameFailure = (data) => {
+  // TODO update this
   console.log(data)
 }
 const onUpdateGameSuccess = ({game}) => {
@@ -40,6 +44,10 @@ const onUpdateGameSuccess = ({game}) => {
     $('#winner-header').slideToggle()
     // turn off the click handlers on the board because the game is over
     gameSelectors.gameBoard.cells.off('click')
+  } else {
+    // highlight the current play for the user so they know if the next
+    // play is an X or an O
+    highlightCurrentTurn(store.currentPlay)
   }
 }
 

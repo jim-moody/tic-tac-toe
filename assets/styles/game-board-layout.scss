@@ -1,4 +1,4 @@
-$game-border: 2px solid $secondary-color;
+$game-border: 2px solid $white;
 $shadow: 2px 2px 2px gray;
 
 .game-board-alert {
@@ -17,6 +17,30 @@ div {
     margin: 20px;
   }
 }
+.game-board-header{
+  margin: .5em auto;
+  max-width: 500px;
+  display: flex;
+
+  div {
+    background-color: $secondary-color;
+    flex: 1;
+    color: $white;
+    font-size: 1.2em;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+
+    &:nth-child(1){
+        margin-right: .25em;
+    }
+    &:nth-child(2){
+        margin-left: .25em;
+    }
+  }
+
+}
+
 
 h1,
 h2 {
@@ -34,7 +58,7 @@ h2 {
   }
 }
 
-.row {
+.game-board .row {
   margin: 0 auto;
 
   &:nth-child(-n+2) {
@@ -55,13 +79,14 @@ h2 {
 }
 
 .game-board {
-  background-color: $white;
+  background-color: $primary-color;
   box-shadow: $shadow;
   margin: 0 auto;
   max-width: 500px;
+  color: $white;
 }
 @media only screen and (max-width: 400px) {
-  .row div {
+  .game-board .row div {
     font-size: 6em;
     height: 120px;
   }

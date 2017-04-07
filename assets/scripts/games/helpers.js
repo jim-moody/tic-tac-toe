@@ -96,7 +96,6 @@ const determineOutcome = (optionalCells) => {
 
 // helper function to calculate win percentage with ties included
 const calculateWinPercentage = (wins, draws, totalGames, decimalPlaces) => {
-  console.log(decimalPlaces)
   if (totalGames > 0) {
     const percentage = (wins + (draws * 0.5)) / totalGames
     return (percentage * 100).toFixed(decimalPlaces)
@@ -144,9 +143,24 @@ const getGameStatistics = (games) => {
 
   return stats
 }
+
+// highlights the current player's title based on the current play passed in
+const highlightCurrentTurn = (currentPlay) => {
+  const border = '5px solid #3f51b5'
+  const xBorder = currentPlay === 'X'
+    ? border
+    : 'none'
+  const oBorder = currentPlay === 'O'
+    ? border
+    : 'none'
+  $('#player-o-title').css('border-bottom', oBorder)
+  $('#player-x-title').css('border-bottom', xBorder)
+}
+
 module.exports = {
   determineOutcome,
   getCellsFromBoard,
   getGameStatistics,
-  getRandomEmptyCellIndex
+  getRandomEmptyCellIndex,
+  highlightCurrentTurn
 }

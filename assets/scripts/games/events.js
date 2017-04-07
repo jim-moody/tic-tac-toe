@@ -1,7 +1,7 @@
 'use strict'
 
 import store from '../store'
-import { determineOutcome } from './helpers'
+import { determineOutcome, highlightCurrentTurn } from './helpers'
 import api from './api'
 import ui from './ui'
 import gameSelectors from './selectors'
@@ -17,7 +17,7 @@ const onTileClick = (event) => {
       : 'X'
 
     // Show the next play to the user
-    $('#next-play').text(store.currentPlay)
+    // $('#next-play').text(store.currentPlay)
 
     // determine if this game is over so it can be saved to db
     const over = determineOutcome().over

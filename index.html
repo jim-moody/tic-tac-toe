@@ -138,26 +138,32 @@
         <div style="display: none;" id="change-password-failure-alert" class="auth-form-alert alert alert-danger" role="alert">There was an issue updating your password. Please check your entries and try again.</div>
 
 
-        <!-- GAME BOARD -->
+        <!-- GAME BOARD ALERTS -->
         <div style="display:none;" id="winner-header" class="game-board-alert alert alert-success" role="alert">X Wins!</div>
 
+        <!-- GAME BOARD -->
+
         <section id="game-board-container" style="display:none;" class="board-container">
-          <p><span id="next-play">X</span> turn</p>
+          <div class="game-board-header">
+              <div id="player-x-title">You: X</div>
+              <div id="player-o-title">Opponent: O</div>
+          </div>
+          <!-- <p><span id="next-play">X</span> turn</p> -->
           <div id="board" class="game-board ">
-            <div class="row ">
-              <div data-cell="0 " class="col-xs-4 "></div>
-              <div data-cell="1 " class="col-xs-4 "></div>
-              <div data-cell="2 " class="col-xs-4 "></div>
+            <div class="row">
+              <div data-cell="0" class="col-xs-4"></div>
+              <div data-cell="1" class="col-xs-4"></div>
+              <div data-cell="2" class="col-xs-4"></div>
             </div>
-            <div class="row ">
-              <div data-cell="3 " class="col-xs-4 "></div>
-              <div data-cell="4 " class="col-xs-4 "></div>
-              <div data-cell="5 " class="col-xs-4 "></div>
+            <div class="row">
+              <div data-cell="3" class="col-xs-4"></div>
+              <div data-cell="4" class="col-xs-4"></div>
+              <div data-cell="5" class="col-xs-4"></div>
             </div>
-            <div class="row ">
-              <div data-cell="6 " class="col-xs-4 "></div>
-              <div data-cell="7 " class="col-xs-4 "></div>
-              <div data-cell="8 " class="col-xs-4 "></div>
+            <div class="row">
+              <div data-cell="6" class="col-xs-4"></div>
+              <div data-cell="7" class="col-xs-4"></div>
+              <div data-cell="8" class="col-xs-4"></div>
             </div>
 
           </div>
