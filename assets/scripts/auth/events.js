@@ -7,6 +7,7 @@ import {user} from '../store'
 import authSelectors from './selectors'
 import {hideAllAlerts} from '../helpers'
 import {showAlert} from '../animations'
+import {showFormLoader} from './helpers'
 
 const onSignUp = (event) => {
   // prevent a page refresh
@@ -20,6 +21,9 @@ const onSignUp = (event) => {
 
   // check to make sure theres data, otherwise show a message to the user
   if (email && password && passwordConfirmation) {
+    // show loader
+    showFormLoader(authSelectors.signUp)
+
     // send the data to the backend and handle success/fail
     api.signUp(data).then(ui.signUpSuccess).catch(ui.signUpFailure)
   } else {
@@ -36,8 +40,8 @@ const onSignIn = (event) => {
 
   // check to make sure theres data, otherwise show a message to the user
   if (data.credentials.email && data.credentials.password) {
-    // show loader and hide button
-    $(event.target).find('button').slideToggle(0, () => $('#loader').slideToggle())
+    // show loader
+    showFormLoader(authSelectors.signIn)
 
     // send the data to the backend and handle success/fail
     api.signIn(data).then(ui.signInSuccess).catch(ui.signInFailure)
@@ -56,7 +60,6 @@ const onSignOut = (event) => {
     api.signOut(user).then(ui.signOutSuccess).catch(ui.signOutFailure)
   } else {
     // TODO handle this with a message? not sure how this could happen
-    console.error('Not signed in')
   }
 }
 const onChangePassword = (event) => {
@@ -68,6 +71,9 @@ const onChangePassword = (event) => {
 
   // make sure the user has filled in an old and new pw in the form
   if (data.passwords.old && data.passwords.new) {
+    // show loader
+    showFormLoader(authSelectors.changePassword)
+
     // send the data to the backend and handle success/fail
     api.changePassword(data, user).then(ui.changePasswordSuccess).catch(ui.changePasswordFailure)
   } else {

@@ -11,7 +11,8 @@ const signUp = {
   email: $('#sign-up-email'),
   password: $('#sign-up-password'),
   passwordConfirmation: $('#sign-up-password-confirmation'),
-  signInLink: $('#sign-in-show')
+  signInLink: $('#sign-in-show'),
+  loader: $('#sign-up-loader')
 }
 
 // sign in form
@@ -20,13 +21,15 @@ const signIn = {
   container: $('#sign-in-container'),
   email: $('#sign-in-email'),
   password: $('#sign-in-password'),
-  signUpLink: $('#sign-up-show')
+  signUpLink: $('#sign-up-show'),
+  loader: $('#sign-in-loader')
 }
 
 // change password form
 const changePassword = {
   form: $('#change-password'),
-  container: $('#change-password-container')
+  container: $('#change-password-container'),
+  loader: $('#change-password-loader')
 }
 
 // all alert messages
@@ -42,12 +45,10 @@ const alerts = {
   signOutSuccess: $('#sign-out-success-alert'),
   signOutFailure: $('#sign-out-failure-alert')
 }
-const loader = $('#loader')
 
 module.exports = {
   changePassword,
   alerts,
   signIn,
-  signUp,
-  loader
+  signUp
 }

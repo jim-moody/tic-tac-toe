@@ -6,10 +6,13 @@ import menuSelectors from '../menu/selectors'
 import { hideAllContainersExcept, hideAllAlerts } from '../helpers'
 import { showAlert, showTemporaryAlert } from '../animations'
 import { onNewGame } from '../games/events'
-
+import { hideFormLoader } from './helpers'
 const signUpSuccess = (data) => {
   // clear any alerts
   hideAllAlerts()
+
+  // hide the loader and show the button again
+  hideFormLoader(authSelectors.signUp)
 
   // let the user know that the sign up worked
   showAlert(authSelectors.alerts.signUpSuccess)
@@ -33,6 +36,9 @@ const signUpFailure = () => {
   // clear alerts (like success alerts)
   hideAllAlerts()
 
+  // hide the form loader and show the button
+  hideFormLoader(authSelectors.signUp)
+
   // let the user know the sign up failed
   showAlert(authSelectors.alerts.signUpFailure)
 }
@@ -44,8 +50,7 @@ const signInSuccess = ({user}) => {
   hideAllContainersExcept()
 
   // hide the loader and put the button back for if the user signs out again
-  authSelectors.signIn.container.find('button').show()
-  authSelectors.loader.hide()
+  hideFormLoader(authSelectors.signIn)
 
   // show the user's email in the header
   menuSelectors.menu.email.text(user.email)
@@ -67,8 +72,7 @@ const signInSuccess = ({user}) => {
 }
 const signInFailure = () => {
   // hide the loader and put the button back after we know it failed
-  authSelectors.signIn.container.find('button').show()
-  authSelectors.loader.hide()
+  hideFormLoader(authSelectors.signIn)
 
   // show a message to the user that sign in didnt work
   showAlert(authSelectors.alerts.signInFailure)
@@ -99,10 +103,16 @@ const signOutFailure = (error) => {
 const changePasswordSuccess = (data) => {
   // TODO navigate somwehere?
 
+  // hide form loader and show button
+  hideFormLoader(authSelectors.changePassword)
+
   // let the user know the password was changed
   showAlert(authSelectors.alerts.changePasswordSuccess)
 }
 const changePasswordFailure = () => {
+  // hide form loader and show button
+  hideFormLoader(authSelectors.changePassword)
+
   // let the user know the password was not changed
   showAlert(authSelectors.alerts.changePasswordFailure)
 }
