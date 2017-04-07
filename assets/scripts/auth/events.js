@@ -84,12 +84,25 @@ const onShowSignUp = (event) => {
   authSelectors.signIn.container.hide()
 }
 
+// this currently can only be triggered from the sign in form
+const onShowSignIn = (event) => {
+  // clear any alerts on the page
+  hideAllAlerts()
+
+  // show the sign in form
+  authSelectors.signIn.container.show()
+
+  // hide the sign up form
+  authSelectors.signUp.container.hide()
+}
+
 // add all the event handlers to their respective selectors
 const addAuthEventHandlers = () => {
   authSelectors.signUp.form.on('submit', onSignUp)
   authSelectors.signIn.form.on('submit', onSignIn)
   authSelectors.changePassword.form.on('submit', onChangePassword)
   authSelectors.signIn.signUpLink.on('click', onShowSignUp)
+  authSelectors.signUp.signInLink.on('click', onShowSignIn)
 }
 
 module.exports = {

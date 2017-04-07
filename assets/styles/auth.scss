@@ -28,7 +28,7 @@ header a:hover {
   margin: 5% auto 0;
 
   p {
-    font-size: 1.1em;
+    font-size: 1em;
   }
 }
 
@@ -47,7 +47,9 @@ header a:hover {
   background-color: $primary-color;
   color: $primary-font-color;
 }
-
+.form-link {
+  margin-left: 5px;
+}
 main form {
   min-height: 200px;
   padding: 20px;

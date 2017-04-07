@@ -10,7 +10,8 @@ const signUp = {
   form: $('#sign-up'),
   email: $('#sign-up-email'),
   password: $('#sign-up-password'),
-  passwordConfirmation: $('#sign-up-password-confirmation')
+  passwordConfirmation: $('#sign-up-password-confirmation'),
+  signInLink: $('#sign-in-show')
 }
 
 // sign in form
