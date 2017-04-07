@@ -43,6 +43,10 @@ const signInSuccess = ({user}) => {
   // clear containers
   hideAllContainersExcept()
 
+  // hide the loader and put the button back for if the user signs out again
+  authSelectors.signIn.container.find('button').show()
+  authSelectors.loader.hide()
+
   // show the user's email in the header
   menuSelectors.menu.email.text(user.email)
 
@@ -62,6 +66,10 @@ const signInSuccess = ({user}) => {
   onNewGame()
 }
 const signInFailure = () => {
+  // hide the loader and put the button back after we know it failed
+  authSelectors.signIn.container.find('button').show()
+  authSelectors.loader.hide()
+
   // show a message to the user that sign in didnt work
   showAlert(authSelectors.alerts.signInFailure)
 }

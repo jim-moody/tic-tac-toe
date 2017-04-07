@@ -42,10 +42,12 @@ const alerts = {
   signOutSuccess: $('#sign-out-success-alert'),
   signOutFailure: $('#sign-out-failure-alert')
 }
+const loader = $('#loader')
 
 module.exports = {
   changePassword,
   alerts,
   signIn,
-  signUp
+  signUp,
+  loader
 }

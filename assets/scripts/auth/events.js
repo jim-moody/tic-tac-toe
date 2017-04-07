@@ -36,6 +36,9 @@ const onSignIn = (event) => {
 
   // check to make sure theres data, otherwise show a message to the user
   if (data.credentials.email && data.credentials.password) {
+    // show loader and hide button
+    $(event.target).find('button').slideToggle(0, () => $('#loader').slideToggle())
+
     // send the data to the backend and handle success/fail
     api.signIn(data).then(ui.signInSuccess).catch(ui.signInFailure)
   } else {
