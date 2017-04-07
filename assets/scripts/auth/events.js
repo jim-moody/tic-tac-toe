@@ -9,14 +9,23 @@ import {hideAllAlerts} from '../helpers'
 import {showAlert} from '../animations'
 
 const onSignUp = (event) => {
-  // get the data from the form
-  const data = getFormFields(event.target)
-
   // prevent a page refresh
   event.preventDefault()
 
-  // send the data to the backend and handle success/fail
-  api.signUp(data).then(ui.signUpSuccess).catch(ui.signUpFailure)
+  // get the data from the form
+  const data = getFormFields(event.target)
+
+  // destructure the data
+  const {email, password, password_confirmation: passwordConfirmation} = data.credentials
+
+  // check to make sure theres data, otherwise show a message to the user
+  if (email && password && passwordConfirmation) {
+    // send the data to the backend and handle success/fail
+    api.signUp(data).then(ui.signUpSuccess).catch(ui.signUpFailure)
+  } else {
+    // let the user know that they need to fill out the form
+    showAlert(authSelectors.alerts.signUpEmpty)
+  }
 }
 const onSignIn = (event) => {
   // prevent a page refresh
@@ -30,6 +39,7 @@ const onSignIn = (event) => {
     // send the data to the backend and handle success/fail
     api.signIn(data).then(ui.signInSuccess).catch(ui.signInFailure)
   } else {
+    // show a message to the user to tell them to enter credentials
     showAlert(authSelectors.alerts.signInEmpty)
   }
 }

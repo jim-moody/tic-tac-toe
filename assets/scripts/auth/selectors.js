@@ -30,6 +30,7 @@ const alerts = {
   signInFailure: $('#sign-in-failure-alert'),
   signUpSuccess: $('#sign-up-success-alert'),
   signUpFailure: $('#sign-up-failure-alert'),
+  signUpEmpty: $('#sign-up-empty-alert'),
   signOutSuccess: $('#sign-out-success-alert'),
   signOutFailure: $('#sign-out-failure-alert')
 }
