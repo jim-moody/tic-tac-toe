@@ -147,14 +147,15 @@ const getGameStatistics = (games) => {
 // highlights the current player's title based on the current play passed in
 const highlightCurrentTurn = (currentPlay) => {
   const border = '5px solid #3f51b5'
+  const secondaryBorder = '5px solid #2196f3'
   const xBorder = currentPlay === 'X'
     ? border
-    : 'none'
+    : secondaryBorder
   const oBorder = currentPlay === 'O'
     ? border
-    : 'none'
-  $('#player-o-title').css('border-bottom', oBorder)
-  $('#player-x-title').css('border-bottom', xBorder)
+    : secondaryBorder
+  $('#player-o-title').css('border', oBorder)
+  $('#player-x-title').css('border', xBorder)
 }
 
 module.exports = {
