@@ -46,6 +46,7 @@ const onSignIn = (event) => {
 const onSignOut = (event) => {
   // prevent a page refresh
   event.preventDefault()
+
   // sign out will only work if the user is saved in the store
   if (user) {
     // send the sign out call to the backend and handle success/fail
@@ -85,11 +86,10 @@ const onShowSignUp = (event) => {
 
 // add all the event handlers to their respective selectors
 const addAuthEventHandlers = () => {
-  $('#sign-up').on('submit', onSignUp)
-  $('#sign-in').on('submit', onSignIn)
-  $('#sign-out').on('submit', onSignOut)
-  $('#change-password').on('submit', onChangePassword)
-  $('#sign-up-show').on('click', onShowSignUp)
+  authSelectors.signUp.form.on('submit', onSignUp)
+  authSelectors.signIn.form.on('submit', onSignIn)
+  authSelectors.changePassword.form.on('submit', onChangePassword)
+  authSelectors.signIn.signUpLink.on('click', onShowSignUp)
 }
 
 module.exports = {

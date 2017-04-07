@@ -6,18 +6,22 @@ Each object is like a "page object" and it contains the elements that make it up
 
 // sign up form
 const signUp = {
-  container: $('#sign-up-container')
+  container: $('#sign-up-container'),
+  form: $('#sign-up')
 }
 
 // sign in form
 const signIn = {
+  form: $('#sign-in'),
   container: $('#sign-in-container'),
   email: $('#sign-in-email'),
-  password: $('#sign-in-password')
+  password: $('#sign-in-password'),
+  signUpLink: $('#sign-up-show')
 }
 
 // change password form
 const changePassword = {
+  form: $('#change-password'),
   container: $('#change-password-container')
 }
 
