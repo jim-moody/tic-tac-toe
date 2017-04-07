@@ -1,7 +1,7 @@
 'use strict'
 
 import store from '../store'
-import { determineOutcome, highlightCurrentTurn } from './helpers'
+import { determineOutcome } from './helpers'
 import api from './api'
 import ui from './ui'
 import gameSelectors from './selectors'
