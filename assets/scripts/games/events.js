@@ -1,13 +1,23 @@
 'use strict'
 
 import store from '../store'
-import {determineOutcome} from './helpers'
+import {determineOutcome, getRandomEmptyCell} from './helpers'
 import api from './api'
 import gameSelectors from './selectors'
 import ui from './ui'
 
+const computerPlay = () => {
+  const cell = getRandomEmptyCell()
+  //const cell
+  onTileClick(cell)
+}
 const onTileClick = (event) => {
-  const target = $(event.target)
+  let target = $(event.target)
+  console.log(store.ai)
+  if (store.ai && store.currentPlay === 'O') {
+    console.log("what")
+    target = event
+  }
 
   // if the cell is empty, continue, else dont do anything
   if (!target.text()) {
@@ -42,6 +52,13 @@ const onTileClick = (event) => {
     // get the current gameId from the store to save to database
     const gameId = store.currentGame.id
 
+    // function to turn tile clicks back on
+    // this CANNOT be added to the onUpdateGameSuccess because
+    // it is a circular dependency
+    const turnOnTileClick = () => {
+      gameSelectors.gameBoard.cells.on('click', onTileClick)
+      computerPlay()
+    }
     // save the new data to the database
     api.updateGame(cell, gameId, over)
     .then(ui.onUpdateGameSuccess).catch(ui.onUpdateGameFailure)

@@ -1,6 +1,6 @@
 'use strict'
 import store from '../store'
-import {determineOutcome, getGameStatistics} from './helpers'
+import {determineOutcome, getGameStatistics, highlightCurrentTurn, computerPlay} from './helpers'
 import gameSelectors from './selectors'
 import {hideAllContainersExcept, hideAllAlerts} from '../helpers'
 import {OUTCOME} from './constants'
@@ -29,6 +29,7 @@ const onNewGameFailure = (data) => {
   // TODO update this
 }
 const onUpdateGameSuccess = ({game}) => {
+  store.ai = true
   // if the game is over
   if (game.over) {
     const {winner} = determineOutcome(game.cells)
@@ -41,6 +42,16 @@ const onUpdateGameSuccess = ({game}) => {
     }
     // display the outcome to the user
     gameSelectors.gameBoard.resultOverlay.slideDown()
+    // turn off the click handlers on the board because the game is over
+    gameSelectors.gameBoard.cells.off('click')
+  } else {
+    // highlight the current play for the user so they know if the next
+    // play is an X or an O
+    highlightCurrentTurn(store.currentPlay)
+
+    if ((store.ai===true )&& store.currentPlay === 'O') {
+      computerPlay()
+    }
   }
 }
 
