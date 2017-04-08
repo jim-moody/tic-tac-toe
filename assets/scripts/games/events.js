@@ -18,7 +18,9 @@ const onTileClick = (event) => {
       : 'X'
 
     // turn off the click events until we have finished our api call
-    gameSelectors.gameBoard.cells.off('click')
+    if (determineOutcome().over) {
+      gameSelectors.gameBoard.cells.off('click')
+    }
 
     // determine if this game is over so it can be saved to db
     const over = determineOutcome().over
@@ -36,17 +38,9 @@ const onTileClick = (event) => {
     // get the current gameId from the store to save to database
     const gameId = store.currentGame.id
 
-    // function to turn tile clicks back on
-    // this CANNOT be added to the onUpdateGameSuccess because
-    // it is a circular dependency
-    const turnOnTileClick = () => {
-      gameSelectors.gameBoard.cells.on('click', onTileClick)
-    }
-
     // save the new data to the database
-    // make sure we turn clicks back on if its a success
-    // see above comment for why we are passing this into the .done function
-    api.updateGame(cell, gameId, over).done(turnOnTileClick).then(ui.onUpdateGameSuccess).catch(ui.onUpdateGameFailure)
+    api.updateGame(cell, gameId, over)
+    .then(ui.onUpdateGameSuccess).catch(ui.onUpdateGameFailure)
   }
 }
 

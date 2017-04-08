@@ -42,8 +42,6 @@ const onUpdateGameSuccess = ({game}) => {
     }
     // display the outcome to the user
     gameSelectors.gameBoard.resultOverlay.slideDown()
-    // turn off the click handlers on the board because the game is over
-    gameSelectors.gameBoard.cells.off('click')
   } else {
     // highlight the current play for the user so they know if the next
     // play is an X or an O
