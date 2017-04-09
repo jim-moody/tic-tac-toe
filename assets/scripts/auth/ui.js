@@ -101,9 +101,8 @@ const signOutSuccess = () => {
   // clear out the store so another user can sign in
   store.user = null
 }
-const signOutFailure = (error) => {
+const signOutFailure = () => {
   // TODO hook this up to an alert message
-  console.error(error)
 }
 const changePasswordSuccess = (data) => {
   // TODO navigate somwehere?

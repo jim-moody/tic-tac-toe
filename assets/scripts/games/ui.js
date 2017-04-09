@@ -27,7 +27,6 @@ const onNewGameSuccess = ({game}) => {
 }
 const onNewGameFailure = (data) => {
   // TODO update this
-  console.log(data)
 }
 const onUpdateGameSuccess = ({game}) => {
   // if the game is over
@@ -42,15 +41,11 @@ const onUpdateGameSuccess = ({game}) => {
     }
     // display the outcome to the user
     gameSelectors.gameBoard.resultOverlay.slideDown()
-  } else {
-    // highlight the current play for the user so they know if the next
-    // play is an X or an O
-    // highlightCurrentTurn(store.currentPlay)
   }
 }
 
 const onUpdateGameFailure = (data) => {
-  console.log(data)
+  // TODO update this
 }
 const onShowStatisticsSuccess = ({games}) => {
   // get the data from the user's games
@@ -68,8 +63,8 @@ const onShowStatisticsSuccess = ({games}) => {
   // show the game stats
   gameSelectors.gameStatistics.container.show()
 }
-const onShowStatisticsFailure = (error) => {
-  console.error(error)
+const onShowStatisticsFailure = () => {
+// TODO handle this error
 }
 
 // toggles which player is highlighted
@@ -90,7 +85,6 @@ const highlightCurrentPlay = (currentPlay) => {
   }
 }
 module.exports = {
-  // handleWinner,
   onNewGameSuccess,
   onNewGameFailure,
   onUpdateGameSuccess,
