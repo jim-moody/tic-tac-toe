@@ -14,7 +14,7 @@ const createGame = () => {
 }
 
 // updates a game
-const updateGame = (cell, gameId, over) => {
+const updateGame = ({cell, gameId, over}) => {
   return $.ajax({
     method: 'PATCH',
     url: config.apiOrigin + '/games/' + gameId,
