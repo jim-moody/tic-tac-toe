@@ -2,8 +2,6 @@
 
 # Tic-Tac-Toe Project Client
 
-  Tic Tac Toe Game with Authentication
-
 -   Live Demo: [Tic Tac Toe](https://jim-moody.github.io/tic-tac-toe)
 
 ## Project Planning
@@ -40,8 +38,8 @@ Once I was done with all the styling updates I had my mom test it out, and I mad
 
 1.  She was trying to click something that wasn't clickable so I changed the styling to make it more obvious that it wasnt a clickable element.
 
--   She was confused about why she had to sign in after signing up, so I added a feature to sign the user in automatically
--   She didnt understand who she was playing against, so I added a feature to allow a user to play against a computer since that is a more intuitive expectation.
+2.  She was confused about why she had to sign in after signing up, so I added a feature to sign the user in automatically
+3.  She didnt understand who she was playing against, so I added a feature to allow a user to play against a computer since that is a more intuitive expectation.
 
 ### Problem-Solving Strategy
 
