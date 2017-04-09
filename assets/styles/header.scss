@@ -1,27 +1,37 @@
 div:focus {
-    outline:none;
+  outline: none;
 }
+
+.header-drawer-container span {
+  text-align: left;
+}
+
 .header-drawer {
-  text-align: initial;
-  justify-content: left;
+  padding-top: 0;
 
   button {
-    border-bottom: 1px solid lightgray;
-    text-align: left;
-    width: 100%;
-    text-transform: none;
+    border-bottom: 1px solid $border-color;
     font-size: 1.3em;
     height: auto;
     padding: 10px;
+    text-align: left;
+    text-transform: none;
+    width: 100%;
 
     &:nth-child(1) {
-      border-top: 1px solid lightgray;
-
+      border-top: 1px solid $border-color;
     }
   }
-
-
 }
+
 .menu-text {
-  margin: 0 auto;
+  margin-left: 10px;
+
+  @media screen and (max-width: 370px) {
+    display: block;
+    font-size: .9em;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
