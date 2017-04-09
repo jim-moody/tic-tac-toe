@@ -9,7 +9,8 @@ const gameBoard = {
   container: $('#game-board-container'),
   board: $('#board'),
   cells: $('#board').find('.row div'),
-  resultOverlay: $('#result-overlay')
+  resultOverlay: $('#result-overlay'),
+  computerSwitch: $('#switch-computer')
 }
 
 // new game button
