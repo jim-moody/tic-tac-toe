@@ -1,13 +1,9 @@
 'use strict'
 
-// import {handleWinner} from './ui'
-// import store from '../store'
-// import { board } from './selectors'
 import {OUTCOME} from './constants'
-import {onTileClick} from './events'
 import gameSelectors from './selectors'
 
-// TODO use this for AI
+// gets a random number so we can get a random index from empty cells
 const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min
 }
@@ -44,8 +40,7 @@ const getRandomEmptyCell = () => {
     index = emptyCells[randomIndex].index
   }
 
-  // get the jquery element from the index
-
+  // get the jquery element from the index and return it
   return $(gameSelectors.gameBoard.cells[index])
 }
 
@@ -117,7 +112,7 @@ const calculateWinPercentage = (wins, draws, totalGames, decimalPlaces) => {
 }
 
 // constructor for our Stats object
-const Stats = function(wins, losses, draws) {
+const Stats = function (wins, losses, draws) {
   this.wins = wins
   this.losses = losses
   this.draws = draws
@@ -160,6 +155,5 @@ module.exports = {
   determineOutcome,
   getCellsFromBoard,
   getGameStatistics,
-  getRandomEmptyCell,
-  highlightCurrentTurn
+  getRandomEmptyCell
 }

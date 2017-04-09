@@ -1,6 +1,6 @@
 'use strict'
 import store from '../store'
-import {determineOutcome, getGameStatistics, highlightCurrentTurn, computerPlay} from './helpers'
+import {determineOutcome, getGameStatistics} from './helpers'
 import gameSelectors from './selectors'
 import {hideAllContainersExcept, hideAllAlerts} from '../helpers'
 import {OUTCOME} from './constants'
@@ -28,10 +28,13 @@ const onNewGameSuccess = ({game}) => {
 const onNewGameFailure = (data) => {
   // TODO update this
 }
-const onUpdateGameSuccess = ({game}) => {
-  store.ai = true
+const onUpdateGameSuccess = ({game}, callback) => {
   // if the game is over
   if (game.over) {
+    // its no longer the computers turn
+    store.computersTurn = false
+
+    // figure out who the winner is from the response
     const {winner} = determineOutcome(game.cells)
     if (winner === OUTCOME.DRAW) {
       // set the text to be that it was a draw
@@ -40,17 +43,26 @@ const onUpdateGameSuccess = ({game}) => {
       // set the text to be who won
       gameSelectors.gameBoard.resultOverlay.text(winner + ' wins!')
     }
-    // display the outcome to the user
-    gameSelectors.gameBoard.resultOverlay.slideDown()
+
+    // display the outcome to the user, then hide it so they can see
+    // how the other person won or how they won
+    gameSelectors.gameBoard.resultOverlay.slideDown().delay(1000).slideUp()
+
     // turn off the click handlers on the board because the game is over
     gameSelectors.gameBoard.cells.off('click')
   } else {
     // highlight the current play for the user so they know if the next
     // play is an X or an O
-    highlightCurrentTurn(store.currentPlay)
+    highlightCurrentPlay(store.currentPlay)
 
-    if ((store.ai===true )&& store.currentPlay === 'O') {
-      computerPlay()
+    // it cant be the computers turn anymore
+    store.computersTurn = false
+
+    // if AI is turned on and the next play is an O,
+    // then we execute the computer's play
+    if (gameSelectors.gameBoard.computerSwitch.prop('checked') && store.currentPlay === 'O') {
+      store.computersTurn = true
+      setTimeout(callback, 250)
     }
   }
 }
@@ -75,7 +87,7 @@ const onShowStatisticsSuccess = ({games}) => {
   gameSelectors.gameStatistics.container.show()
 }
 const onShowStatisticsFailure = () => {
-// TODO handle this error
+  // TODO handle this error
 }
 
 // toggles which player is highlighted
@@ -89,7 +101,7 @@ const highlightCurrentPlay = (currentPlay) => {
     x.addClass('is-active')
     o.removeClass('is-active')
 
-  // if the current play is O, highlight the O player
+    // if the current play is O, highlight the O player
   } else if (currentPlay === 'O') {
     o.addClass('is-active')
     x.removeClass('is-active')
