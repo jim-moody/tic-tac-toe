@@ -144,24 +144,9 @@ const getGameStatistics = (games) => {
   return stats
 }
 
-// highlights the current player's title based on the current play passed in
-const highlightCurrentTurn = (currentPlay) => {
-  const border = '5px solid #3f51b5'
-  const secondaryBorder = '5px solid #2196f3'
-  const xBorder = currentPlay === 'X'
-    ? border
-    : secondaryBorder
-  const oBorder = currentPlay === 'O'
-    ? border
-    : secondaryBorder
-  $('#player-o-title').css('border', oBorder)
-  $('#player-x-title').css('border', xBorder)
-}
-
 module.exports = {
   determineOutcome,
   getCellsFromBoard,
   getGameStatistics,
-  getRandomEmptyCellIndex,
-  highlightCurrentTurn
+  getRandomEmptyCellIndex
 }

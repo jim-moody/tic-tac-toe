@@ -9,19 +9,21 @@ $shadow: 2px 2px 2px gray;
 div {
   text-align: center;
 }
+
 .board-overlay {
+  align-items: center;
+  background-color: #3f51b5;
   height: 100%;
-    position: absolute;
-    background-color: #3f51b5;
-    z-index: 10;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    font-size: 6em;
-    width: 100%;
-    top: 0;
-    left: 0;
+  position: absolute;
+  z-index: 10;
+  justify-content: center;
+  display: flex;
+  font-size: 6em;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
+
 .game-footer {
   width: 100%;
 
@@ -29,30 +31,44 @@ div {
     margin: 20px;
   }
 }
-.game-board-header{
+
+.game-board-header {
+  display: flex;
   margin: .5em auto;
   max-width: 500px;
-  display: flex;
 
   div {
-    background-color: $secondary-color;
-    flex: 1;
-    color: $white;
-    font-size: 1.2em;
-    justify-content: center;
     align-items: center;
-    padding: 0.5em;
+    background-color: $white;
+    box-shadow: 1px 1px 1px #808080;
+    color: $secondary-font-color;
+    flex: 1;
+    font-size: 1em;
+    justify-content: center;
+    padding: .2em 0;
+    border-bottom: 5px solid $white;
 
-    &:nth-child(1){
-        margin-right: .25em;
+    &:nth-child(1) {
+      margin-right: .25em;
     }
-    &:nth-child(2){
-        margin-left: .25em;
+
+    &:nth-child(2) {
+      margin-left: .25em;
+    }
+
+    &.is-active {
+      border-bottom: 5px solid $primary-color;
+      //margin-bottom: -5px;
+    }
+    br {
+      margin: 5px 0;
+    }
+    span {
+      font-size: 1.5em;
+      font-weight: bold;
     }
   }
-
 }
-
 
 h1,
 h2 {
@@ -80,6 +96,7 @@ h2 {
   div {
     font-size: 10em;
     height: 175px;
+
     &:hover {
       cursor: pointer;
     }

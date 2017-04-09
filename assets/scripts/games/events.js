@@ -22,6 +22,10 @@ const onTileClick = (event) => {
       gameSelectors.gameBoard.cells.off('click')
     }
 
+    // highlight the current play for the user so they know if the next
+    // play is an X or an O
+    ui.highlightCurrentPlay(store.currentPlay)
+
     // determine if this game is over so it can be saved to db
     const over = determineOutcome().over
 

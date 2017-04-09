@@ -1,6 +1,6 @@
 'use strict'
 import store from '../store'
-import {determineOutcome, getGameStatistics, highlightCurrentTurn} from './helpers'
+import {determineOutcome, getGameStatistics} from './helpers'
 import gameSelectors from './selectors'
 import {hideAllContainersExcept, hideAllAlerts} from '../helpers'
 import {OUTCOME} from './constants'
@@ -17,7 +17,7 @@ const onNewGameSuccess = ({game}) => {
   gameSelectors.gameBoard.cells.text('')
 
   // highlight the correct turn
-  highlightCurrentTurn(store.currentPlay)
+  highlightCurrentPlay(store.currentPlay)
 
   // show the game board if hidden
   !gameSelectors.gameBoard.container.is(':visible') && gameSelectors.gameBoard.container.slideDown()
@@ -45,7 +45,7 @@ const onUpdateGameSuccess = ({game}) => {
   } else {
     // highlight the current play for the user so they know if the next
     // play is an X or an O
-    highlightCurrentTurn(store.currentPlay)
+    // highlightCurrentTurn(store.currentPlay)
   }
 }
 
@@ -71,6 +71,24 @@ const onShowStatisticsSuccess = ({games}) => {
 const onShowStatisticsFailure = (error) => {
   console.error(error)
 }
+
+// toggles which player is highlighted
+// this is used to show who's turn it is
+const highlightCurrentPlay = (currentPlay) => {
+  const x = $('#player-x-title')
+  const o = $('#player-o-title')
+
+  // if current play is x, highlight the X player
+  if (currentPlay === 'X') {
+    x.addClass('is-active')
+    o.removeClass('is-active')
+
+  // if the current play is O, highlight the O player
+  } else if (currentPlay === 'O') {
+    o.addClass('is-active')
+    x.removeClass('is-active')
+  }
+}
 module.exports = {
   // handleWinner,
   onNewGameSuccess,
@@ -78,5 +96,6 @@ module.exports = {
   onUpdateGameSuccess,
   onUpdateGameFailure,
   onShowStatisticsSuccess,
-  onShowStatisticsFailure
+  onShowStatisticsFailure,
+  highlightCurrentPlay
 }
