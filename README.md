@@ -4,6 +4,24 @@
 
   Tic Tac Toe Game with Authentication
 
+-   Live Demo: [Tic Tac Toe](https://jim-moody.github.io/tic-tac-toe)
+
+## Project Planning
+
+### User Stories
+
+-   **Sign Up** - As a user I want to be able to create an account so I can save unfinished games
+-   **Change Password** - As a user I want to be able to change my password so I can keep my account secure
+-   **Play vs Computer** - As a user I want to be able to play tic tac toe against a computer so I can play even if I have no friends
+-   **Sign In** - As a user I want to be able to sign in so I can pick up where I left off
+-   **Game Statistics** - As a user I want to be able to see my statistics so I can see how many games I have won and lost
+
+### Wireframes
+
+[User Flow](http://imgur.com/a/QnOGm)
+
+## Development Process
+
 ## Getting Started
 
   These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -14,25 +32,13 @@
 
 ### Installing
 
-Fork and clone this repository
-
-    git clone YOUR_FORKED_REPOSITORY
-
-cd into the cloned directory
-
-    cd tic-tac-toe-client
-
-Install dependencies
+Install dependencies with npm install
 
     npm install
 
-Run the server
+Run the server with grunt
 
     grunt serve
-
-Go to the local server url in your browser
-
-    http://localhost:7165
 
 ## Running the tests
 
@@ -60,6 +66,5 @@ Go to the local server url in your browser
 
 ## [License](LICENSE)
 
-    1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
-    2.  All software code is licensed under GNU GPLv3. For commercial use or
-          alternative licensing, please contact legal@ga.co.
+1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
+2.  All software code is licensed under GNU GPLv3. For commercial use or alternative licensing, please contact legal@ga.co.
