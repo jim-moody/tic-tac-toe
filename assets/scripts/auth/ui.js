@@ -8,6 +8,7 @@ import { showAlert, showTemporaryAlert } from '../animations'
 import { onNewGame } from '../games/events'
 import { hideFormLoader } from './helpers'
 import gameSelectors from '../games/selectors'
+import api from './api'
 
 const signUpSuccess = (data) => {
   // clear any alerts
@@ -16,10 +17,16 @@ const signUpSuccess = (data) => {
   // hide the loader and show the button again
   hideFormLoader(authSelectors.signUp)
 
-  // let the user know that the sign up worked
-  showAlert(authSelectors.alerts.signUpSuccess)
+  // get the credentials the user entered when signing up
+  // so we can sign the user in automatically
+  const credentials = {
+    email: authSelectors.signUp.email.val(),
+    password: authSelectors.signUp.password.val()
+  }
+  // sign user in and handle success/fail
+  api.signIn({credentials}).then(signInSuccess).catch(signInFailure)
 
-  // hide the sign up form
+  // hide the sign up form since we know that worked now
   authSelectors.signUp.container.hide()
 
   // clear/reset the sign in form in case the user gets back there somehow
@@ -29,10 +36,6 @@ const signUpSuccess = (data) => {
   authSelectors.signUp.email.parent('div').toggleClass('is-dirty')
   authSelectors.signUp.password.parent('div').toggleClass('is-dirty')
   authSelectors.signUp.passwordConfirmation.parent('div').toggleClass('is-dirty')
-
-  // show the sign in form
-  // TODO sign the user in automatically
-  authSelectors.signIn.container.show()
 }
 const signUpFailure = () => {
   // clear alerts (like success alerts)
@@ -73,6 +76,9 @@ const signInSuccess = ({user}) => {
   onNewGame()
 }
 const signInFailure = () => {
+  // make sure sign in is shown, just in case the user came from sign up
+  authSelectors.signIn.container.show()
+
   // hide the loader and put the button back after we know it failed
   hideFormLoader(authSelectors.signIn)
 
