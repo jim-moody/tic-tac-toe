@@ -20,41 +20,45 @@
 
 [User Flow](http://imgur.com/a/QnOGm)
 
+### Data Model
+
+Uses the [Game API](https://github.com/jim-moody/game-project-api)
+
 ## Development Process
 
-## Getting Started
+The strategy I used was just an iterative model. I knew the authentication piece would be simple to implement because it was a copy and paste from the books training we did, so I wanted to save that for later.
 
-  These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The first thing I did was create a simple html/css layout of a tic tac toe board.  Then I worked on hooking up events to the board and setting the text of each cell clicked. Once I had that working, I moved on to checking to see if anyone had won after each click, and if so, who the winner was.  At this point I had a fully functional tic tac toe board so it was time to start saving the information to the database.
 
-### Prerequisites
+Setting up the API actually was pretty tricky because the way I was storing data initially was not how the API expected it, so I had to rewrite a lot of code. If I had done a better job reviewing the API initially, it would have saved me some time on this phase.
 
--   [Node.js](https://nodejs.org/en/)
+Once I had the updateGame api set up, it was time to work on auth.  Like I had figured, this wasn't too bad.  I just copied everything from the training and it pretty much just worked.
 
-### Installing
+Now I had everything working so I started added styling in and the hiding/showing of individual components as needed.  My goal was to make it very hard for the user to mess up.  So I added error handling for all the authentication forms which would display a message to the user if it failed for some reason or if it succeeded.
 
-Install dependencies with npm install
+Once I was done with all the styling updates I had my mom test it out, and I made 3 major updates after I watched her try it out:
 
-    npm install
+1.  She was trying to click something that wasn't clickable so I changed the styling to make it more obvious that it wasnt a clickable element.
 
-Run the server with grunt
+-   She was confused about why she had to sign in after signing up, so I added a feature to sign the user in automatically
+-   She didnt understand who she was playing against, so I added a feature to allow a user to play against a computer since that is a more intuitive expectation.
 
-    grunt serve
+### Problem-Solving Strategy
 
-## Running the tests
+If the issue wasn't major, I would actually open an issue on my own personal github to remind myself to go back to it later. If it was major, I would follow these steps:
 
-    grunt test
+1.  See if there were any error messages in the console or linter.  If so - fix them and try again
+2.  Follow my code step by step to see if there were any obvious mistakes in the flow
+3.  Insert console.log statements to see what the data looked like or see if the code was making it to where I thought it was
+4.  Google what I was trying to do to see if there were any obvious gotchas
+5.  Search the github issues on the game project to see if anyone had the same problem as me
+6.  Open an issue on github
 
-### Test Description
+### Unsolved Problems
 
-  Currently the only tests that exist are for testing the tic tac toe game logic to make sure it gets the correct winner for each game scenario.
+See [issues](https://github.com/jim-moody/tic-tac-toe/issues)
 
-## Deployment
-
-  To deploy, run this command
-
-    grunt deploy
-
-## Built With
+## Technologies Used
 
 -   [Bootstrap](http://getbootstrap.com/) - CSS framework for responsive design
 -   [Material Design Lite](https://getmdl.io) - CSS framework utilizing material design
@@ -62,7 +66,7 @@ Run the server with grunt
 
 ## Authors
 
-**Jim Moody**
+Jim Moody
 
 ## [License](LICENSE)
 
