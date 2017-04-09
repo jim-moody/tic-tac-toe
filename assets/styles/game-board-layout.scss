@@ -3,11 +3,15 @@ $shadow: 2px 2px 2px gray;
 
 .game-board-alert {
   margin: 10px auto 0;
-  max-width: 500px;
 }
 
 div {
   text-align: center;
+}
+
+.board-container {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .board-overlay {
@@ -25,17 +29,30 @@ div {
 }
 
 .game-footer {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .toggle-switch {
+    width: 50%;
+  }
 
   button {
     margin: 20px;
+  }
+
+  .game-footer-item {
+    flex: 1;
+
+    &:nth-child(1) {
+      flex: 3;
+    }
   }
 }
 
 .game-board-header {
   display: flex;
-  margin: .5em auto;
-  max-width: 500px;
+  margin: 0.5em auto;
 
   div {
     align-items: center;
@@ -45,24 +62,26 @@ div {
     flex: 1;
     font-size: 1em;
     justify-content: center;
-    padding: .2em 0;
+    padding: 0.2em 0;
     border-bottom: 5px solid $white;
 
     &:nth-child(1) {
-      margin-right: .25em;
+      margin-right: 0.25em;
     }
 
     &:nth-child(2) {
-      margin-left: .25em;
+      margin-left: 0.25em;
     }
 
     &.is-active {
       border-bottom: 5px solid $primary-color;
       //margin-bottom: -5px;
     }
+
     br {
       margin: 5px 0;
     }
+
     span {
       font-size: 1.5em;
       font-weight: bold;
@@ -86,35 +105,35 @@ h2 {
   }
 }
 
-.game-board .row {
-  margin: 0 auto;
-
-  &:nth-child(-n+3) {
-    border-bottom: $game-border;
-  }
-
-  div {
-    font-size: 10em;
-    height: 175px;
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    &:nth-child(-n+2) {
-      border-right: $game-border;
-    }
-  }
-}
-
 .game-board {
   position: relative;
   background-color: $primary-color;
   box-shadow: $shadow;
   margin: 0 auto;
-  max-width: 500px;
   color: $white;
+
+  .row {
+    margin: 0 auto;
+
+    &:nth-child(-n+3) {
+      border-bottom: $game-border;
+    }
+
+    div {
+      font-size: 10em;
+      height: 175px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:nth-child(-n+2) {
+        border-right: $game-border;
+      }
+    }
+  }
 }
+
 @media only screen and (max-width: 400px) {
   .game-board .row div {
     font-size: 6em;
