@@ -120,7 +120,7 @@ const Stats = function (wins, losses, draws) {
     return this.wins + this.losses + this.draws
   }
   this.winPercentage = (decimalPlaces) => {
-    return calculateWinPercentage(this.wins, this.losses, this.totalGames(), decimalPlaces)
+    return calculateWinPercentage(this.wins, this.draws, this.totalGames(), decimalPlaces)
   }
 }
 
@@ -147,7 +147,6 @@ const getGameStatistics = (games) => {
       }
     }
   })
-
   return stats
 }
 
