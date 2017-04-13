@@ -4,21 +4,13 @@ import {OUTCOME} from './constants'
 import gameSelectors from './selectors'
 
 // gets a random number so we can get a random index from empty cells
-const getRandomInt = (min, max) => {
-  return Math.floor(Math.random() * (max - min)) + min
-}
+const getRandomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min)) + min
 
 // get all the text from all the cells in the RENDERED board into an array
 // if a cell is empty, set its value to be '' in the arrray
-const getCellsFromBoard = () => {
-  const cells = []
-  $('#board .row').toArray().forEach((row) => {
-    $(row).children().toArray().forEach((div) => {
-      cells.push($(div).text().toLowerCase() || '')
-    })
-  })
-  return cells
-}
+const getCellsFromBoard = () =>
+$('[data-cell]').toArray().map((cell) => $(cell).text())
 
 // TODO use this for AI
 const getRandomEmptyCell = () => {
@@ -78,12 +70,12 @@ const determineOutcome = (optionalCells) => {
   ]
 
   // check if 3 X's in a row exist in any of the winning combinations
-  if (winningCombinations.some((combination) => combination.toLowerCase() === 'xxx')) {
+  if (winningCombinations.some((combination) => combination === 'XXX')) {
     outcome.over = true
     outcome.winner = OUTCOME.X
 
     // check if 3 O's in a row exist in any of the winning combinations
-  } else if (winningCombinations.some((combination) => combination.toLowerCase() === 'ooo')) {
+  } else if (winningCombinations.some((combination) => combination === 'OOO')) {
     outcome.over = true
     outcome.winner = OUTCOME.O
 
