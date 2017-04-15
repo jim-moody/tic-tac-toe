@@ -1,16 +1,15 @@
 'use strict'
 
-import {OUTCOME} from './constants'
-import gameSelectors from './selectors'
+import {OUTCOME, TOKEN} from './constants'
+import {gameBoard} from './selectors'
 
 // gets a random number so we can get a random index from empty cells
-const getRandomInt = (min, max) =>
-  Math.floor(Math.random() * (max - min)) + min
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
 
 // get all the text from all the cells in the RENDERED board into an array
 // if a cell is empty, set its value to be '' in the arrray
 const getCellsFromBoard = () =>
-$('[data-cell]').toArray().map((cell) => $(cell).text())
+gameBoard.cells.toArray().map((cell) => $(cell).text())
 
 // TODO use this for AI
 const getRandomEmptyCell = () => {
@@ -33,7 +32,7 @@ const getRandomEmptyCell = () => {
   }
 
   // get the jquery element from the index and return it
-  return $(gameSelectors.gameBoard.cells[index])
+  return $(gameBoard.cells[index])
 }
 
 // returns an outcome object
@@ -48,44 +47,36 @@ const determineOutcome = (optionalCells) => {
 
   // get all the possible combinations of cells that could win:
   // 3 rows, 3 columns, 2 diagonals
-  const row1 = cellArray[0] + cellArray[1] + cellArray[2]
-  const row2 = cellArray[3] + cellArray[4] + cellArray[5]
-  const row3 = cellArray[6] + cellArray[7] + cellArray[8]
-  const col1 = cellArray[0] + cellArray[3] + cellArray[6]
-  const col2 = cellArray[1] + cellArray[4] + cellArray[7]
-  const col3 = cellArray[2] + cellArray[5] + cellArray[8]
-  const diagonal1 = cellArray[0] + cellArray[4] + cellArray[8]
-  const diagonal2 = cellArray[2] + cellArray[4] + cellArray[6]
-
-  // put the winning combinations into an array for easier manipulation
-  const winningCombinations = [
-    row1,
-    row2,
-    row3,
-    col1,
-    col2,
-    col3,
-    diagonal1,
-    diagonal2
+  const winners = [
+    [0, 1, 2], // row 1
+    [3, 4, 5], // row 2
+    [6, 7, 8], // row 3
+    [0, 3, 6], // col 1
+    [1, 4, 7], // col 2
+    [2, 5, 8], // col 3
+    [0, 4, 8], // diag 1
+    [2, 4, 6]  // diag 2
   ]
+  winners.forEach((i) => {
+    const combination = [cellArray[i[0]], cellArray[i[1]], cellArray[i[2]]]
 
-  // check if 3 X's in a row exist in any of the winning combinations
-  if (winningCombinations.some((combination) => combination === 'XXX')) {
-    outcome.over = true
-    outcome.winner = OUTCOME.X
-
-    // check if 3 O's in a row exist in any of the winning combinations
-  } else if (winningCombinations.some((combination) => combination === 'OOO')) {
-    outcome.over = true
-    outcome.winner = OUTCOME.O
-
-    // check if the board is completely full
-    // if it is full, since we already know there are no winners
-    // we can now say it must be a draw
-  } else if (cellArray.every((cell) => cell)) {
-    outcome.over = true
-    outcome.winner = OUTCOME.DRAW
-  }
+    // returns true when theres 3 in a row of the X token
+    // so set the winner to be X and game over
+    if (combination.every((e) => e === TOKEN.X)) {
+      outcome.winner = TOKEN.X
+      outcome.over = true
+      // returns true when theres 3 in a row of the O token
+      // so set the winner to be O and game over
+    } else if (combination.every((e) => e === TOKEN.O)) {
+      outcome.winner = TOKEN.O
+      outcome.over = true
+      // returns true when all cells have text in them
+      // at this point we know no one won, so it must be a draw
+    } else if (cellArray.every((cell) => cell)) {
+      outcome.over = true
+      outcome.winner = OUTCOME.DRAW
+    }
+  })
 
   // return the outcome object
   // over: Boolean

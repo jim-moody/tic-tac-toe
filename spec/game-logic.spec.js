@@ -1,30 +1,47 @@
 'use strict'
 
 import { determineOutcome } from '../assets/scripts/games/helpers'
+import {TOKEN} from '../assets/scripts/games/constants'
 
 describe('Game Logic', () => {
-  it(`returns winner of x and game over`, () => {
-    const board = ['x', 'x', 'x', '', '', '', '', '', '']
-    expect(determineOutcome(board)).toEqual({over: true, winner: 'X'})
+  it(`row 1 returns winner of X`, () => {
+    const board = ['X', 'X', 'X', '', '', '', '', '', '']
+    expect(determineOutcome(board)).toEqual({over: true, winner: TOKEN.X})
   })
-  it(`returns winner of o and game over`, () => {
-    const board = ['o', 'x', 'x', '', 'o', '', '', '', 'o']
-    expect(determineOutcome(board)).toEqual({over: true, winner: 'O'})
+  it(`row 2 returns winner of X`, () => {
+    const board = ['O', 'X', 'X', 'X', 'X', 'X', '', '', 'O']
+    expect(determineOutcome(board)).toEqual({over: true, winner: TOKEN.X})
   })
-  it(`returns winner of x and game over`, () => {
-    const board = ['x', '', '', 'x', '', '', 'x', '', '']
-    expect(determineOutcome(board)).toEqual({over: true, winner: 'X'})
+  it(`row 3 returns winner of X`, () => {
+    const board = ['X', '', '', 'X', '', '', 'X', 'X', 'X']
+    expect(determineOutcome(board)).toEqual({over: true, winner: TOKEN.X})
   })
-  it(`returns correct winner of x and game over`, () => {
-    const board = ['x', 'x', 'o', '', 'o', '', 'x', 'x', 'x']
-    expect(determineOutcome(board)).toEqual({over: true, winner: 'X'})
+  it(`col 1 returns winner of X`, () => {
+    const board = ['X', 'X', 'O', 'X', 'O', '', 'X', 'O', 'O']
+    expect(determineOutcome(board)).toEqual({over: true, winner: TOKEN.X})
+  })
+  it(`col 2 returns winner of X`, () => {
+    const board = ['O', 'X', 'O', 'X', 'X', '', 'O', 'X', 'O']
+    expect(determineOutcome(board)).toEqual({over: true, winner: TOKEN.X})
+  })
+  it(`col 3 returns winner of O`, () => {
+    const board = ['', 'X', 'O', 'X', '', 'O', '', 'X', 'O']
+    expect(determineOutcome(board)).toEqual({over: true, winner: TOKEN.O})
+  })
+  it(`diag 1 returns winner of O`, () => {
+    const board = ['O', 'X', '', '', 'O', 'X', 'X', '', 'O']
+    expect(determineOutcome(board)).toEqual({over: true, winner: TOKEN.O})
+  })
+  it(`diag 2 returns winner of O`, () => {
+    const board = ['X', '', 'O', 'X', 'O', '', 'O', '', 'X']
+    expect(determineOutcome(board)).toEqual({over: true, winner: TOKEN.O})
   })
   it(`returns game not over`, () => {
-    const board = ['x', 'o', 'x', '', '', '', '', '', '']
+    const board = ['X', 'O', 'X', '', '', '', '', '', '']
     expect(determineOutcome(board)).toEqual({over: false})
   })
   it(`returns draw and game over `, () => {
-    const board = ['x', 'o', 'x', 'x', 'o', 'o', 'o', 'x', 'x']
+    const board = ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', 'X']
     expect(determineOutcome(board)).toEqual({over: true, winner: 'DRAW'})
   })
 })

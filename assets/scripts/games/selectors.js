@@ -8,7 +8,7 @@ Each object is like a "page object" and it contains the elements that make it up
 const gameBoard = {
   container: $('#game-board-container'),
   board: $('#board'),
-  cells: $('#board').find('.row div'),
+  cells: $('[data-cell]'),
   resultOverlay: $('#result-overlay'),
   computerSwitch: $('#switch-computer')
 }
